@@ -1,0 +1,13 @@
+# Build output
+**/target/
+
+# macOS junk
+.DS_Store
+
+# Archives
+*.zip
+
+# IDE
+.idea/
+*.iml
+.vscode/
