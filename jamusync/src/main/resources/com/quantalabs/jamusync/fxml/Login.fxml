@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- The root is a StackPane so the cream background fills the whole window
+     and our login card sits nicely in the center (no black void around it). -->
+<StackPane styleClass="root" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.quantalabs.jamusync.controller.LoginController">
+    <stylesheets>
+        <URL value="@../css/style.css" />
+    </stylesheets>
+
+    <children>
+        <!-- The login card. We keep it 650px wide and let its height fit content. -->
+        <VBox maxHeight="-Infinity" maxWidth="650.0" prefWidth="650.0" styleClass="login-card">
+            <children>
+
+                <!-- Dark brown header (the wooden signboard look) -->
+                <VBox alignment="CENTER" styleClass="login-card-header">
+                    <children>
+                        <ImageView fitHeight="200.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/jamusync-logo-white.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </VBox>
+
+                <!-- The sign in form area -->
+                <VBox alignment="CENTER_LEFT" spacing="6.0">
+                    <padding>
+                        <Insets bottom="24.0" left="60.0" right="60.0" top="30.0" />
+                    </padding>
+                    <children>
+                        <Label styleClass="header-subtitle" text="SUGENG RAWUH (WELCOME)" />
+                        <Label styleClass="header-title" text="Sign In to JamuSync">
+                            <VBox.margin>
+                                <Insets bottom="24.0" top="4.0" />
+                            </VBox.margin>
+                        </Label>
+
+                        <!-- Username field -->
+                        <VBox spacing="5.0">
+                            <children>
+                                <Label styleClass="label-form" text="Username" />
+                                <TextField fx:id="usernameField" promptText="Enter username..." styleClass="text-field" />
+                            </children>
+                            <VBox.margin>
+                                <Insets bottom="16.0" />
+                            </VBox.margin>
+                        </VBox>
+
+                        <!-- Password field -->
+                        <VBox spacing="5.0">
+                            <children>
+                                <Label styleClass="label-form" text="Password" />
+                                <PasswordField fx:id="passwordField" promptText="Enter password..." styleClass="password-field" />
+                            </children>
+                            <VBox.margin>
+                                <Insets bottom="16.0" />
+                            </VBox.margin>
+                        </VBox>
+
+                        <!-- Error message shows here if login fails -->
+                        <Label fx:id="errorLabel" styleClass="label-error" wrapText="true">
+                            <VBox.margin>
+                                <Insets bottom="12.0" />
+                            </VBox.margin>
+                        </Label>
+
+                        <!-- Primary sign in button (sage green pill) -->
+                        <Button fx:id="loginButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLogin" text="Sign In">
+                            <VBox.margin>
+                                <Insets bottom="20.0" />
+                            </VBox.margin>
+                        </Button>
+
+                        <!-- A simple "or" divider between the two buttons -->
+                        <HBox alignment="CENTER" spacing="10.0">
+                            <children>
+                                <Region prefHeight="1.0" styleClass="divider" HBox.hgrow="ALWAYS" />
+                                <Label styleClass="label-muted" text="or" />
+                                <Region prefHeight="1.0" styleClass="divider" HBox.hgrow="ALWAYS" />
+                            </children>
+                            <VBox.margin>
+                                <Insets bottom="20.0" />
+                            </VBox.margin>
+                        </HBox>
+
+                        <!-- Guest browse button. We use the warm brown secondary style
+                             so it stands out clearly as a real option. -->
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleGuestBrowse" styleClass="button-secondary" text="Browse Products as Guest" />
+                    </children>
+                </VBox>
+
+                <!-- Footer branding: the QuantaLabs logo and credit -->
+                <VBox alignment="CENTER" spacing="6.0">
+                    <padding>
+                        <Insets bottom="18.0" left="30.0" right="30.0" top="4.0" />
+                    </padding>
+                    <children>
+                        <Region prefHeight="1.0" maxWidth="1.7976931348623157E308" styleClass="divider">
+                            <VBox.margin>
+                                <Insets bottom="10.0" />
+                            </VBox.margin>
+                        </Region>
+                        <!-- QuantaLabs logo, 60px tall, centered -->
+                        <ImageView fitHeight="60.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/quantalabs-logo.png" />
+                            </image>
+                        </ImageView>
+                        <Label style="-fx-text-fill: #8B5A3C; -fx-font-size: 11px;" text="Developed by QuantaLabs" />
+                    </children>
+                </VBox>
+
+            </children>
+        </VBox>
+    </children>
+</StackPane>
