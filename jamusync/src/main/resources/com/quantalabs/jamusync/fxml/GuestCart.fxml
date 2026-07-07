@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- The guest cart screen. Nav bar on top, then the cart in a centered column. -->
+<VBox styleClass="root" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.quantalabs.jamusync.controller.GuestCartController">
+    <stylesheets>
+        <URL value="@../css/style.css" />
+    </stylesheets>
+    <children>
+
+        <!-- GUEST NAV BAR with a 4th "My Cart" pill (active here) -->
+        <HBox alignment="CENTER_LEFT" spacing="15.0" styleClass="guest-nav-bar">
+            <children>
+                <!-- JamuSync logo and QuantaLabs logo side by side -->
+                <HBox alignment="CENTER_LEFT" spacing="12.0">
+                    <children>
+                        <ImageView fitHeight="110.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/JamuSync_logofinal.png" />
+                            </image>
+                        </ImageView>
+                        <ImageView fitHeight="70.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/quantalabs-logo.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </HBox>
+                <Region HBox.hgrow="ALWAYS" />
+                <HBox alignment="CENTER" spacing="10.0">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#handleNavHerb" styleClass="nav-pill" text="Herb Matrix" />
+                        <Button mnemonicParsing="false" onAction="#handleNavMixer" styleClass="nav-pill" text="Jamu Mixer" />
+                        <Button mnemonicParsing="false" onAction="#handleNavSymptom" styleClass="nav-pill" text="Symptom Sync" />
+                        <!-- We are on this screen, so this pill is active -->
+                        <Button mnemonicParsing="false" styleClass="nav-pill, nav-pill-active" text="My Cart" />
+                    </children>
+                </HBox>
+                <Region HBox.hgrow="ALWAYS" />
+                <Button mnemonicParsing="false" onAction="#handleBackToLogin" styleClass="button-outline" text="Back to Login" />
+            </children>
+        </HBox>
+
+        <!-- Scrollable content with a centered 700px column -->
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane" VBox.vgrow="ALWAYS">
+            <content>
+                <VBox alignment="TOP_CENTER">
+                    <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                    </padding>
+                    <children>
+
+                        <!-- The 700px wide cart column -->
+                        <VBox maxWidth="700.0" spacing="20.0">
+                            <children>
+
+                                <Label styleClass="guest-title" text="Your Cart" />
+
+                                <!-- The cart items (filled in by the controller) -->
+                                <VBox fx:id="itemsContainer" spacing="12.0" />
+
+                                <!-- Voucher and totals card -->
+                                <VBox spacing="12.0" styleClass="card">
+                                    <children>
+                                        <Label styleClass="card-title" text="Have a voucher?" />
+                                        <HBox spacing="10.0">
+                                            <children>
+                                                <TextField fx:id="voucherField" promptText="Enter voucher code" HBox.hgrow="ALWAYS" />
+                                                <Button mnemonicParsing="false" onAction="#handleApplyVoucher" styleClass="button-secondary" text="Apply" />
+                                            </children>
+                                        </HBox>
+                                        <Label fx:id="voucherMsgLabel" text="" wrapText="true" />
+
+                                        <!-- A thin divider before the totals -->
+                                        <Region maxWidth="1.7976931348623157E308" styleClass="divider" />
+
+                                        <Label fx:id="subtotalLabel" styleClass="text-dark" text="Subtotal: Rp 0" />
+                                        <Label fx:id="discountLabel" styleClass="text-accent" text="Discount: Rp 0" />
+                                        <Label fx:id="totalLabel" styleClass="metric-value" text="Total: Rp 0" />
+                                    </children>
+                                </VBox>
+
+                                <!-- Buyer details card -->
+                                <VBox spacing="12.0" styleClass="card">
+                                    <children>
+                                        <Label styleClass="card-title" text="Your Details" />
+                                        <VBox spacing="4.0">
+                                            <children>
+                                                <Label styleClass="label-form" text="Your name" />
+                                                <TextField fx:id="nameField" promptText="Your name" />
+                                            </children>
+                                        </VBox>
+                                        <VBox spacing="4.0">
+                                            <children>
+                                                <Label styleClass="label-form" text="WhatsApp number" />
+                                                <TextField fx:id="phoneField" promptText="WhatsApp number for order updates" />
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </VBox>
+
+                                <!-- Place order and continue browsing -->
+                                <Button fx:id="placeOrderButton" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlePlaceOrder" text="Place Order" />
+                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleContinueBrowsing" styleClass="button-outline" text="Continue Browsing" />
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </children>
+</VBox>

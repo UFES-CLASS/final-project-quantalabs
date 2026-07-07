@@ -1,0 +1,930 @@
+/* ==========================================================================
+   JamuSync Theme Stylesheet
+   Style idea: warm, hand-crafted Javanese batik meets Studio Ghibli warmth.
+   We want the app to feel like a cozy traditional Indonesian market shop,
+   not cold corporate software.
+
+   Our color palette (we keep these the same everywhere):
+   - Cream background ........ #FAF6EE  (the main window color)
+   - Panel cream ............. #F0E9D8  (slightly darker panels / sidebars)
+   - Deep brown .............. #4A2C1D  (headers, dark bars, dark text)
+   - Warm brown .............. #8B5A3C  (accents, secondary buttons)
+   - Sage green .............. #5C7A4F  (primary action buttons)
+   - Soft green .............. #A8C090  (hover state / success)
+   - Error red ............... #B33A3A  (errors, danger buttons)
+   - Divider line ............ #E8DDD0  (thin lines between sections)
+   - White text .............. #FFFFFF  (text on dark backgrounds)
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   1. BASE / ROOT
+   The root is the whole window. We set the cream background and default font.
+   -------------------------------------------------------------------------- */
+.root {
+    -fx-font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    -fx-font-size: 14px;                 /* body text size */
+    -fx-background-color: #FAF6EE;       /* cream background */
+    -fx-text-fill: #4A2C1D;              /* deep brown text */
+}
+
+
+/* --------------------------------------------------------------------------
+   2. SCROLL PANE
+   We make the scroll pane see-through so the cream background shows through.
+   -------------------------------------------------------------------------- */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+
+/* --------------------------------------------------------------------------
+   3. TYPOGRAPHY (titles, subtitles, labels)
+   Big clear size hierarchy so the screens are easy to read.
+   -------------------------------------------------------------------------- */
+
+/* Main page title, for example "Sales POS" */
+.header-title {
+    -fx-padding: 4 8 4 8;
+    -fx-label-padding: 2;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4A2C1D;              /* deep brown */
+}
+
+/* Small uppercase subtitle under a title */
+.header-subtitle {
+    -fx-font-size: 12px;
+    -fx-text-fill: #8B5A3C;              /* warm brown accent */
+    -fx-font-weight: bold;
+}
+
+/* A normal form field label like "Username" */
+.label-form {
+    -fx-font-weight: bold;
+    -fx-text-fill: #4A2C1D;
+    -fx-font-size: 12px;
+}
+
+/* Grey-ish helper text that is not very important */
+.label-muted {
+    -fx-text-fill: #9A8C7A;
+    -fx-font-size: 12px;
+}
+
+/* Error message text (red) */
+.label-error {
+    -fx-text-fill: #B33A3A;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+/* Success message text (green) */
+.label-success {
+    -fx-text-fill: #5C7A4F;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+/* Plain dark text helper */
+.text-dark {
+    -fx-text-fill: #4A2C1D;
+    -fx-font-size: 14px;
+}
+
+/* Accent colored text helper (warm brown) */
+.text-accent {
+    -fx-text-fill: #8B5A3C;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+
+/* --------------------------------------------------------------------------
+   4. HEADER BAR (the wooden signboard look)
+   A full width deep brown bar that sits at the top of a screen.
+   Cream lettering on rich brown, like a Javanese market signboard.
+   -------------------------------------------------------------------------- */
+.header-bar {
+    -fx-background-color: #4A2C1D;       /* deep brown */
+    -fx-padding: 20px 30px;
+    /* soft warm shadow under the bar so it feels raised */
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 44, 29, 0.25), 12, 0, 0, 4);
+}
+
+/* The big JamuSync logo text used inside a header bar.
+   We keep it 45px so it is large and prominent in every header. */
+.header-logo {
+    -fx-padding: 4 8 4 8;
+    -fx-label-padding: 2;
+    -fx-font-size: 45px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FAF6EE;              /* cream lettering */
+}
+
+/* The page title when it sits on the dark header bar */
+.header-bar-title {
+    -fx-padding: 4 8 4 8;
+    -fx-label-padding: 2;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FAF6EE;
+}
+
+/* The subtitle when it sits on the dark header bar */
+.header-bar-subtitle {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #A8C090;              /* soft green so it stands out on brown */
+}
+
+
+/* --------------------------------------------------------------------------
+   5. CARDS / PANELS
+   Cards feel like aged parchment: warm background, rounded corners,
+   and a soft warm-tinted shadow (never cold grey).
+   -------------------------------------------------------------------------- */
+.card {
+    -fx-background-color: #F0E9D8;       /* panel cream */
+    -fx-background-radius: 12px;
+    -fx-border-color: #E8DDD0;           /* divider color border */
+    -fx-border-radius: 12px;
+    -fx-border-width: 1px;
+    -fx-padding: 24px;
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 44, 29, 0.12), 12, 0, 0, 5);
+}
+
+/* Title inside a card */
+.card-title {
+    -fx-padding: 4 8 4 8;
+    -fx-label-padding: 2;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4A2C1D;
+}
+
+/* A clickable card (like the product cards in the catalog).
+   It gently lifts up when you hover to feel tactile. */
+.card-interactive {
+    -fx-cursor: hand;
+}
+
+.card-interactive:hover {
+    -fx-border-color: #A8C090;           /* soft green highlight */
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 44, 29, 0.22), 16, 0, 0, 7);
+}
+
+
+/* --------------------------------------------------------------------------
+   6. BUTTONS
+   Buttons feel tactile with a soft raised shadow and warm colors.
+   Primary buttons are fully rounded (pill shape) for a friendly feel.
+   -------------------------------------------------------------------------- */
+
+/* Default / primary button = sage green pill */
+.button {
+    -fx-background-color: #5C7A4F;       /* sage green */
+    -fx-text-fill: #FFFFFF;              /* white text */
+    -fx-background-radius: 50px;         /* fully rounded pill */
+    -fx-padding: 12px 24px;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 44, 29, 0.20), 6, 0, 0, 3);
+}
+
+.button:hover {
+    -fx-background-color: #A8C090;       /* soft green on hover */
+    -fx-text-fill: #4A2C1D;
+}
+
+.button:pressed {
+    -fx-background-color: #4C6741;       /* darker green when pressed */
+}
+
+/* Secondary button = warm brown pill */
+.button-secondary {
+    -fx-background-color: #8B5A3C;       /* warm brown */
+    -fx-text-fill: #FFFFFF;
+}
+
+.button-secondary:hover {
+    -fx-background-color: #9E6B4A;
+    -fx-text-fill: #FFFFFF;
+}
+
+.button-secondary:pressed {
+    -fx-background-color: #74472E;
+}
+
+/* Outline button = see through with a brown border, less loud */
+.button-outline {
+    -fx-background-color: transparent;
+    -fx-text-fill: #4A2C1D;
+    -fx-border-color: #8B5A3C;
+    -fx-border-width: 1px;
+    -fx-border-radius: 50px;
+    -fx-background-radius: 50px;
+    -fx-effect: null;                    /* no shadow, it is a quiet button */
+}
+
+.button-outline:hover {
+    -fx-background-color: rgba(139, 90, 60, 0.10);
+    -fx-text-fill: #4A2C1D;
+}
+
+/* Outline button for use ON the dark brown header bar.
+   Cream text and cream border so it is visible on brown.
+   On hover it fills with cream and the text turns brown. */
+.button-header-outline {
+    -fx-background-color: transparent;
+    -fx-text-fill: #FAF6EE;              /* cream text */
+    -fx-border-color: #FAF6EE;           /* cream border */
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 50px;
+    -fx-background-radius: 50px;
+    -fx-padding: 12px 24px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.button-header-outline:hover {
+    -fx-background-color: #FAF6EE;       /* filled cream */
+    -fx-text-fill: #4A2C1D;              /* deep brown text */
+}
+
+/* Danger button = error red pill for deactivate / cancel actions */
+.button-danger {
+    -fx-background-color: #B33A3A;       /* error red */
+    -fx-text-fill: #FFFFFF;
+}
+
+.button-danger:hover {
+    -fx-background-color: #C84D4D;
+    -fx-text-fill: #FFFFFF;
+}
+
+.button-danger:pressed {
+    -fx-background-color: #9A2E2E;
+}
+
+/* Small button used inside table rows (like the cart Remove button) */
+.button-small {
+    -fx-padding: 5px 12px;
+    -fx-font-size: 12px;
+    -fx-background-radius: 8px;
+}
+
+
+/* --------------------------------------------------------------------------
+   7. INPUT FIELDS (text, password, text area, combo box, date picker)
+   White-ish inputs with rounded corners and a clear sage green focus ring.
+   -------------------------------------------------------------------------- */
+.text-field,
+.password-field,
+.text-area,
+.combo-box,
+.date-picker {
+    -fx-background-color: #FFFDF8;       /* very soft warm white */
+    -fx-background-radius: 10px;
+    -fx-border-color: #E8DDD0;           /* divider color border */
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+    -fx-padding: 10px;
+    -fx-text-fill: #4A2C1D;
+    -fx-prompt-text-fill: #A69B8F;
+}
+
+/* The text area inner part also needs the warm background */
+.text-area .content {
+    -fx-background-color: #FFFDF8;
+    -fx-background-radius: 10px;
+}
+
+/* When an input is focused we show a soft sage green ring */
+.text-field:focused,
+.password-field:focused,
+.text-area:focused,
+.combo-box:focused,
+.date-picker:focused {
+    -fx-border-color: #5C7A4F;           /* sage green focus border */
+    -fx-effect: dropshadow(three-pass-box, rgba(92, 122, 79, 0.30), 6, 0, 0, 0);
+}
+
+/* Make combo box text and arrow use our brown color */
+.combo-box .list-cell {
+    -fx-text-fill: #4A2C1D;
+    -fx-background-color: transparent;
+}
+
+.combo-box .arrow,
+.date-picker .arrow-button .arrow {
+    -fx-background-color: #8B5A3C;
+}
+
+
+/* --------------------------------------------------------------------------
+   8. SIDEBAR NAVIGATION
+   A deep brown vertical bar on the left with cream / green buttons.
+   -------------------------------------------------------------------------- */
+.sidebar {
+    -fx-background-color: #4A2C1D;       /* deep brown */
+    -fx-padding: 24px 14px;
+}
+
+/* The JamuSync brand text at the top of the sidebar */
+.sidebar-brand {
+    -fx-text-fill: #FAF6EE;              /* cream */
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 30px 8px;
+}
+
+/* A navigation button in the sidebar */
+.sidebar-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #EAD9C6;              /* soft cream */
+    -fx-alignment: center-left;
+    -fx-padding: 12px 16px;
+    -fx-background-radius: 10px;
+    -fx-font-size: 15px;
+    -fx-font-weight: normal;
+    -fx-effect: null;
+}
+
+.sidebar-btn:hover {
+    -fx-background-color: rgba(168, 192, 144, 0.20);   /* faint soft green */
+    -fx-text-fill: #FFFFFF;
+}
+
+/* The currently selected navigation button */
+.sidebar-btn-active {
+    -fx-background-color: #5C7A4F;       /* sage green */
+    -fx-text-fill: #FFFFFF;
+    -fx-font-weight: bold;
+}
+
+.sidebar-btn-active:hover {
+    -fx-background-color: #5C7A4F;
+    -fx-text-fill: #FFFFFF;
+}
+
+
+/* --------------------------------------------------------------------------
+   9. TOP BAR (used above dashboard content, on the right side)
+   -------------------------------------------------------------------------- */
+.top-bar {
+    -fx-background-color: #4A2C1D;       /* deep brown signboard */
+    -fx-padding: 20px 30px;
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 44, 29, 0.25), 12, 0, 0, 4);
+}
+
+/* User name shown in the top bar */
+.top-bar-username {
+    -fx-font-weight: bold;
+    -fx-text-fill: #FAF6EE;
+    -fx-font-size: 14px;
+}
+
+/* Role text shown in the top bar */
+.top-bar-role {
+    -fx-font-size: 12px;
+    -fx-text-fill: #A8C090;              /* soft green */
+    -fx-font-weight: bold;
+}
+
+
+/* --------------------------------------------------------------------------
+   10. TABLES
+   Clean tables with a deep brown header row and warm striped rows.
+   -------------------------------------------------------------------------- */
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-color: #E8DDD0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+
+/* The header strip across the top of the table */
+.table-view .column-header-background {
+    -fx-background-color: #4A2C1D;       /* deep brown */
+    -fx-background-radius: 10px 10px 0 0;
+}
+
+.table-view .column-header,
+.table-view .filler {
+    -fx-background-color: transparent;
+    -fx-size: 42px;
+}
+
+/* Header text (cream on brown) */
+.table-view .column-header .label {
+    -fx-text-fill: #FAF6EE;
+    -fx-font-weight: bold;
+}
+
+/* Normal row */
+.table-view .table-row-cell {
+    -fx-background-color: #FFFDF8;       /* soft warm white */
+    -fx-border-color: #F0E9D8;
+    -fx-border-width: 0 0 1px 0;
+}
+
+/* Every other row is slightly darker so rows are easy to follow */
+.table-view .table-row-cell:odd {
+    -fx-background-color: #F5EFE2;
+}
+
+/* A selected row gets a soft green highlight */
+.table-view .table-row-cell:selected {
+    -fx-background-color: rgba(168, 192, 144, 0.35);
+    -fx-text-fill: #4A2C1D;
+}
+
+.table-view .table-row-cell:selected .text {
+    -fx-fill: #4A2C1D;
+}
+
+/* Friendly message shown when a table is empty */
+.table-view .placeholder .label {
+    -fx-text-fill: #9A8C7A;
+    -fx-font-size: 14px;
+}
+
+
+/* --------------------------------------------------------------------------
+   11. METRIC CARDS (dashboard numbers)
+   Big numbers for revenue, stock alerts, etc.
+   -------------------------------------------------------------------------- */
+
+/* Small label above a big number */
+.metric-label {
+    -fx-font-size: 13px;
+    -fx-text-fill: #8B5A3C;             /* warm brown */
+    -fx-font-weight: bold;
+}
+
+/* The big number itself */
+.metric-value {
+    -fx-padding: 4 8 4 8;
+    -fx-label-padding: 2;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4A2C1D;             /* deep brown */
+}
+
+/* A green (good news) big number */
+.metric-positive {
+    -fx-padding: 4 8 4 8;
+    -fx-label-padding: 2;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #5C7A4F;             /* sage green */
+}
+
+/* A red / orange (warning) big number */
+.metric-warning {
+    -fx-padding: 4 8 4 8;
+    -fx-label-padding: 2;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #B33A3A;             /* error red */
+}
+
+/* A small accent line under a metric */
+.metric-accent {
+    -fx-font-size: 12px;
+    -fx-text-fill: #8B5A3C;
+}
+
+
+/* --------------------------------------------------------------------------
+   12. PRODUCT DETAIL LABELS (catalog details / product cards)
+   -------------------------------------------------------------------------- */
+.detail-name {
+    -fx-padding: 4 8 4 8;
+    -fx-label-padding: 2;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4A2C1D;
+}
+
+.detail-price {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #5C7A4F;             /* sage green price */
+}
+
+/* The empty box where a product image would go.
+   We give it a soft dashed look so it never looks broken when empty. */
+.image-preview-box {
+    -fx-background-color: #FAF6EE;
+    -fx-background-radius: 10px;
+    -fx-border-color: #E8DDD0;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+}
+
+
+/* --------------------------------------------------------------------------
+   13. STATUS BADGES
+   Small colored pills for showing a status (green / red / orange).
+   These are ready to use as styleClass on any label.
+   -------------------------------------------------------------------------- */
+.status-badge {
+    -fx-padding: 4px 12px;
+    -fx-background-radius: 50px;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FFFFFF;
+}
+
+/* Green badge for "Completed" */
+.status-badge-completed {
+    -fx-background-color: #5C7A4F;       /* sage green */
+    -fx-text-fill: #FFFFFF;
+}
+
+/* Red badge for "Cancelled" */
+.status-badge-cancelled {
+    -fx-background-color: #B33A3A;       /* error red */
+    -fx-text-fill: #FFFFFF;
+}
+
+/* Orange badge for "Pending" */
+.status-badge-pending {
+    -fx-background-color: #C27A32;       /* accent orange */
+    -fx-text-fill: #FFFFFF;
+}
+
+
+/* --------------------------------------------------------------------------
+   14. DIVIDER LINES
+   Thin warm lines used to split sections apart.
+   This works both for a Line shape (-fx-stroke) and for a thin Region bar
+   (-fx-background-color), so we can use it in either place.
+   -------------------------------------------------------------------------- */
+.divider {
+    -fx-stroke: #E8DDD0;
+    -fx-stroke-width: 1px;
+    -fx-background-color: #E8DDD0;
+    -fx-min-height: 1px;
+    -fx-pref-height: 1px;
+}
+
+
+/* --------------------------------------------------------------------------
+   15. LOGIN SCREEN specific styles
+   -------------------------------------------------------------------------- */
+
+/* The dark brown header strip at the top of the login card */
+.login-card-header {
+    -fx-background-color: #4A2C1D;
+    -fx-background-radius: 14px 14px 0 0;
+    -fx-padding: 30px;
+}
+
+/* The whole login card (cream parchment with rounded corners) */
+.login-card {
+    -fx-background-color: #F0E9D8;
+    -fx-background-radius: 14px;
+    -fx-border-color: #E8DDD0;
+    -fx-border-radius: 14px;
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 44, 29, 0.18), 20, 0, 0, 8);
+}
+
+/* Big JamuSync name inside the login header */
+.login-brand-title {
+    -fx-padding: 4 8 4 8;
+    -fx-label-padding: 2;
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #FAF6EE;
+}
+
+/* Tagline under the brand name */
+.login-brand-tagline {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #A8C090;             /* soft green */
+}
+
+/* The QuantaLabs footer branding text */
+.footer-brand {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #8B5A3C;             /* warm brown */
+}
+
+.footer-note {
+    -fx-font-size: 11px;
+    -fx-text-fill: #9A8C7A;
+}
+
+
+/* --------------------------------------------------------------------------
+   16. DIALOGS AND ALERTS
+   Keep pop up windows in the same warm cream theme.
+   -------------------------------------------------------------------------- */
+.dialog-pane {
+    -fx-background-color: #FAF6EE;
+}
+
+.dialog-pane > .button-bar > .container {
+    -fx-background-color: #FAF6EE;
+}
+
+.dialog-pane .label {
+    -fx-text-fill: #4A2C1D;
+}
+
+
+/* --------------------------------------------------------------------------
+   17. GUEST NAVIGATION BAR
+   A light cream top bar used on the guest browsing screens.
+   It holds the logo, some pill shaped nav buttons, and a back button.
+   -------------------------------------------------------------------------- */
+
+/* The whole top bar (light cream with a thin line under it) */
+.guest-nav-bar {
+    -fx-background-color: #FAF6EE;
+    -fx-padding: 16px 30px;
+    -fx-border-color: #E8DDD0;           /* divider line under the bar */
+    -fx-border-width: 0 0 1px 0;
+}
+
+/* A pill shaped navigation button (outlined, see through) */
+.nav-pill {
+    -fx-background-color: transparent;
+    -fx-text-fill: #4A2C1D;
+    -fx-border-color: #8B5A3C;           /* warm brown outline */
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 50px;
+    -fx-background-radius: 50px;
+    -fx-padding: 8px 20px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+}
+
+.nav-pill:hover {
+    -fx-background-color: rgba(139, 90, 60, 0.10);
+}
+
+/* The nav pill for the screen you are currently on (filled orange) */
+.nav-pill-active {
+    -fx-background-color: #C27A32;       /* accent orange */
+    -fx-text-fill: #FFFFFF;
+    -fx-border-color: transparent;       /* no border when active */
+}
+
+.nav-pill-active:hover {
+    -fx-background-color: #C27A32;
+    -fx-text-fill: #FFFFFF;
+}
+
+/* The title area above a guest grid (gives it breathing room) */
+.guest-title-section {
+    -fx-padding: 30px 30px 10px 30px;
+}
+
+/* Small orange label above the big page title (like "MATERIA MEDICA") */
+.guest-eyebrow {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #C27A32;              /* accent orange */
+}
+
+/* The big guest page title */
+.guest-title {
+    -fx-padding: 4 8 4 8;
+    -fx-label-padding: 2;
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #4A2C1D;
+}
+
+
+/* --------------------------------------------------------------------------
+   18. JAMU MIXER
+   The mixer screen lets a guest pick ingredients and see a health profile.
+   -------------------------------------------------------------------------- */
+
+/* One ingredient button/card in the ingredient list.
+   The left border is kept at 4px (transparent) so the card does not
+   jump when the orange accent appears on selection. */
+.ingredient-card {
+    -fx-background-color: #F0E9D8;       /* panel cream */
+    -fx-background-radius: 12px;
+    -fx-border-radius: 12px;
+    -fx-border-color: transparent;
+    -fx-border-width: 0 0 0 4px;         /* left accent stripe (hidden here) */
+    -fx-padding: 12px;
+    -fx-text-fill: #4A2C1D;
+    -fx-alignment: CENTER-LEFT;
+    -fx-graphic-text-gap: 10px;          /* space between the dot and the text */
+    -fx-cursor: hand;
+}
+
+/* A slight shadow lifts the card when you hover over it */
+.ingredient-card:hover {
+    -fx-background-color: #EAE1CC;
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 44, 29, 0.15), 8, 0, 0, 3);
+}
+
+/* A selected card gets a subtle orange stripe down its left side */
+.ingredient-card-selected {
+    -fx-background-color: #F0E9D8;
+    -fx-border-color: #C27A32;           /* accent orange */
+    -fx-border-width: 0 0 0 4px;
+}
+
+.ingredient-card-selected:hover {
+    -fx-background-color: #EAE1CC;
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 44, 29, 0.15), 8, 0, 0, 3);
+}
+
+/* The small grey circle (radio button style) on the left of a card */
+.ingredient-dot {
+    -fx-min-width: 14px;
+    -fx-pref-width: 14px;
+    -fx-max-width: 14px;
+    -fx-min-height: 14px;
+    -fx-pref-height: 14px;
+    -fx-max-height: 14px;
+    -fx-background-color: transparent;
+    -fx-border-color: #B7AB98;           /* soft grey ring */
+    -fx-border-width: 2px;
+    -fx-border-radius: 7px;              /* half of 14 makes a circle */
+    -fx-background-radius: 7px;
+}
+
+/* When the card is selected the circle fills with orange */
+.ingredient-dot-selected {
+    -fx-background-color: #C27A32;       /* accent orange */
+    -fx-border-color: #C27A32;
+}
+
+/* The grey track behind a health bar */
+.health-bar {
+    -fx-background-color: #E8DDD0;
+    -fx-background-radius: 4px;
+    -fx-min-height: 8px;
+    -fx-pref-height: 8px;
+    -fx-max-height: 8px;
+}
+
+/* The green fill part of a health bar (we set its width in code) */
+.health-bar-fill {
+    -fx-background-color: #5C7A4F;       /* sage green */
+    -fx-background-radius: 4px;
+    -fx-min-height: 8px;
+    -fx-pref-height: 8px;
+    -fx-max-height: 8px;
+}
+
+/* The box that shows the potency score */
+.potency-box {
+    -fx-border-color: #E8DDD0;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-padding: 16px;
+    -fx-alignment: CENTER;
+}
+
+
+/* --------------------------------------------------------------------------
+   19. SYMPTOM SYNC
+   The symptom screen lets a guest pick how they feel and get remedy matches.
+   -------------------------------------------------------------------------- */
+
+/* A pill button for choosing a symptom */
+.symptom-pill {
+    -fx-background-color: transparent;
+    -fx-text-fill: #4A2C1D;
+    -fx-border-color: #8B5A3C;           /* warm brown outline */
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 50px;
+    -fx-background-radius: 50px;
+    -fx-padding: 8px 18px;
+    -fx-cursor: hand;
+}
+
+.symptom-pill:hover {
+    -fx-background-color: rgba(139, 90, 60, 0.10);
+}
+
+/* A symptom pill that is currently selected (filled orange) */
+.symptom-pill-selected {
+    -fx-background-color: #C27A32;       /* accent orange */
+    -fx-text-fill: #FFFFFF;
+    -fx-border-color: #C27A32;
+}
+
+.symptom-pill-selected:hover {
+    -fx-background-color: #C27A32;
+    -fx-text-fill: #FFFFFF;
+}
+
+/* A remedy match result card */
+.match-card {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 14px;
+    -fx-border-color: #E8DDD0;
+    -fx-border-radius: 14px;
+    -fx-border-width: 1px;
+    -fx-padding: 20px;
+}
+
+/* The little green "Best Match" badge */
+.match-badge {
+    -fx-background-color: #5C7A4F;       /* sage green */
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 50px;
+    -fx-padding: 4px 12px;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+/* A small tag showing one ingredient */
+.ingredient-tag {
+    -fx-border-color: #E8DDD0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 50px;
+    -fx-background-radius: 50px;
+    -fx-padding: 2px 10px;
+    -fx-font-size: 11px;
+    -fx-text-fill: #8B5A3C;              /* warm brown */
+}
+
+/* The round circle showing the match percentage */
+.match-circle {
+    -fx-min-width: 60px;
+    -fx-pref-width: 60px;
+    -fx-max-width: 60px;
+    -fx-min-height: 60px;
+    -fx-pref-height: 60px;
+    -fx-max-height: 60px;
+    -fx-border-color: #C27A32;           /* accent orange */
+    -fx-border-width: 3px;
+    -fx-border-radius: 30px;             /* half of 60 makes a circle */
+    -fx-background-radius: 30px;
+    -fx-alignment: CENTER;
+    -fx-text-fill: #4A2C1D;
+    -fx-font-weight: bold;
+}
+
+
+/* --------------------------------------------------------------------------
+   20. CHAT (Jamu Assistant)
+   The chat panel pinned at the bottom of the Symptom Sync screen.
+   -------------------------------------------------------------------------- */
+
+/* The whole chat panel that sits under the results */
+.chat-panel {
+    -fx-background-color: #FAF6EE;
+    -fx-border-color: #E8DDD0;           /* a line at the top to split it off */
+    -fx-border-width: 1px 0 0 0;
+    -fx-padding: 16px 30px;
+}
+
+/* A message the user typed (orange bubble, shown on the right) */
+.chat-bubble-user {
+    -fx-background-color: #C27A32;       /* accent orange */
+    -fx-text-fill: #FFFFFF;
+    -fx-background-radius: 14px;
+    -fx-padding: 10px 14px;
+}
+
+/* A message from the bot (cream bubble, shown on the left) */
+.chat-bubble-bot {
+    -fx-background-color: #F0E9D8;       /* panel cream */
+    -fx-text-fill: #4A2C1D;
+    -fx-background-radius: 14px;
+    -fx-padding: 10px 14px;
+}
+
+/* The small round "AI" icon next to a bot message.
+   We use letters instead of an emoji. */
+.bot-icon {
+    -fx-min-width: 28px;
+    -fx-pref-width: 28px;
+    -fx-max-width: 28px;
+    -fx-min-height: 28px;
+    -fx-pref-height: 28px;
+    -fx-max-height: 28px;
+    -fx-background-color: #4A2C1D;       /* deep brown */
+    -fx-text-fill: #FAF6EE;
+    -fx-background-radius: 14px;
+    -fx-alignment: CENTER;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
