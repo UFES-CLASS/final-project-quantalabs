@@ -72,9 +72,15 @@ public class JamuMixerController {
     public void initialize() {
         // Make a toggle button for each ingredient.
         for (String[] ingredient : ingredients) {
-            ToggleButton toggle = new ToggleButton(ingredient[0] + "  (" + ingredient[1] + ")");
+            // English name first, then the Indonesian name in parentheses,
+            // e.g. "Ginger (Jahe)". (index 1 = English, index 0 = Indonesian)
+            ToggleButton toggle = new ToggleButton(ingredient[1] + " (" + ingredient[0] + ")");
             toggle.getStyleClass().add("ingredient-card");
             toggle.setMaxWidth(Double.MAX_VALUE);
+            // Extra vertical padding + let the button grow to its content height
+            // so the ingredient name is never clipped at the bottom edge.
+            toggle.setStyle("-fx-padding: 14 14 14 14;");
+            toggle.setMinHeight(Region.USE_PREF_SIZE);
 
             // A small grey circle (radio button style) on the left of the card.
             Region dot = new Region();

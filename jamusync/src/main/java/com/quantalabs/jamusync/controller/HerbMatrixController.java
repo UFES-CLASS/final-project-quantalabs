@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
@@ -100,6 +101,10 @@ public class HerbMatrixController {
         Label nameLabel = new Label(product.getName());
         nameLabel.getStyleClass().add("detail-name");
         nameLabel.setWrapText(true);
+        // Extra vertical padding + let the label grow to its content height
+        // so the herb name is never clipped at the bottom edge.
+        nameLabel.setStyle("-fx-padding: 6 8 6 8;");
+        nameLabel.setMinHeight(Region.USE_PREF_SIZE);
         card.getChildren().add(nameLabel);
 
         // --- Price in Rupiah ---
