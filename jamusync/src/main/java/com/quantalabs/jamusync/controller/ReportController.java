@@ -86,23 +86,56 @@ public class ReportController {
         showSuccess("Report generated for " + start + " to " + end + ".");
     }
 
+    // Shown as the chart title when there is nothing to draw, so the user
+    // sees a friendly note instead of a blank, empty chart.
+    private static final String NO_DATA_MESSAGE = "No sales data available for this period";
+
     // Fill the three charts with data for the chosen date range.
+    // We draw each chart in its own small method so the code is easy to read.
     private void populateCharts(String start, String end) {
-        // A) PIE CHART - best selling products (top 5 by quantity).
+        populatePieChart(start, end);
+        populateBarChart(start, end);
+        populateLineChart(start, end);
+    }
+
+    // PIE CHART: shows the best-selling products by how many units were sold.
+    // Each slice is one product, and a bigger slice means more units sold.
+    private void populatePieChart(String start, String end) {
         pieChart.getData().clear();
         List<Map.Entry<String, Integer>> sales = transactionItemDAO.getSalesByProduct(start, end);
+
+        // Empty-state: no products were sold in this date range.
+        if (sales.isEmpty()) {
+            pieChart.setTitle(NO_DATA_MESSAGE);
+            return;
+        }
+
+        // We have data, so put the normal title back and add one slice per product.
+        pieChart.setTitle("Best Selling Products");
         for (Map.Entry<String, Integer> entry : sales) {
             pieChart.getData().add(new PieChart.Data(entry.getKey() + " (" + entry.getValue() + ")", entry.getValue()));
         }
+    }
 
-        // B) BAR CHART - monthly revenue and cost.
+    // BAR CHART: compares monthly REVENUE (money earned) against monthly COST
+    // (money spent), so you can see profit or loss for each month side by side.
+    private void populateBarChart(String start, String end) {
         barChart.getData().clear();
+        List<TransactionDAO.MonthlyRevenueCost> monthly = transactionDAO.getMonthlyRevenueCost(start, end);
+
+        // Empty-state: no completed sales in this date range.
+        if (monthly.isEmpty()) {
+            barChart.setTitle(NO_DATA_MESSAGE);
+            return;
+        }
+
+        // We have data, so put the normal title back and build the two series.
+        barChart.setTitle("Monthly Profit & Loss");
         XYChart.Series<String, Number> revenueSeries = new XYChart.Series<>();
         revenueSeries.setName("Revenue");
         XYChart.Series<String, Number> costSeries = new XYChart.Series<>();
         costSeries.setName("Cost");
 
-        List<TransactionDAO.MonthlyRevenueCost> monthly = transactionDAO.getMonthlyRevenueCost(start, end);
         for (TransactionDAO.MonthlyRevenueCost m : monthly) {
             revenueSeries.getData().add(new XYChart.Data<>(m.month, m.revenue));
             costSeries.getData().add(new XYChart.Data<>(m.month, m.cost));
@@ -121,12 +154,24 @@ public class ReportController {
                 data.getNode().setStyle("-fx-bar-fill: #8B5A3C;");
             }
         }
+    }
 
-        // C) LINE CHART - revenue trend by day.
+    // LINE CHART: shows how the revenue changes day by day (the revenue trend)
+    // across the date range the user picked, so you can spot ups and downs.
+    private void populateLineChart(String start, String end) {
         lineChart.getData().clear();
+        List<Map.Entry<String, Double>> daily = transactionDAO.getDailyRevenue(start, end);
+
+        // Empty-state: no revenue recorded on any day in this date range.
+        if (daily.isEmpty()) {
+            lineChart.setTitle(NO_DATA_MESSAGE);
+            return;
+        }
+
+        // We have data, so put the normal title back and plot the trend line.
+        lineChart.setTitle("Revenue Trend");
         XYChart.Series<String, Number> trendSeries = new XYChart.Series<>();
         trendSeries.setName("Revenue");
-        List<Map.Entry<String, Double>> daily = transactionDAO.getDailyRevenue(start, end);
         for (Map.Entry<String, Double> entry : daily) {
             trendSeries.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
         }
