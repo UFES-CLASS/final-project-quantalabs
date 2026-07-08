@@ -6,6 +6,7 @@ import com.quantalabs.jamusync.dao.TransactionDAO;
 import com.quantalabs.jamusync.dao.TransactionItemDAO;
 import com.quantalabs.jamusync.model.Product;
 import com.quantalabs.jamusync.model.Transaction;
+import com.quantalabs.jamusync.util.PendingOrderQueue;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -98,7 +99,20 @@ public class OwnerDashboardController {
         double todayRevenue = transactionDAO.getTodaySalesTotal();
         int todaySalesCount = transactionDAO.getTodaySalesCount();
         int lowStockCount = productDAO.getLowStockCount();
-        int pendingOrdersCount = transactionDAO.getPendingTransactionsCount();
+
+        // We use a Queue (FIFO - First In First Out) to manage the pending guest
+        // orders, because orders should be handled in the order they arrived:
+        // the oldest pending order first. Here we fetch all pending transactions
+        // and enqueue each one, then use the queue's size() for the count.
+        List<Transaction> pendingList = transactionDAO.getFilteredTransactions("Pending", null, null);
+        // getFilteredTransactions returns newest-first, so we reverse it to put
+        // the OLDEST order first before enqueuing (true FIFO order).
+        java.util.Collections.reverse(pendingList);
+        PendingOrderQueue pendingOrderQueue = new PendingOrderQueue();
+        for (Transaction pendingOrder : pendingList) {
+            pendingOrderQueue.addOrder(pendingOrder); // enqueue each pending order
+        }
+        int pendingOrdersCount = pendingOrderQueue.size();
 
         revenueLabel.setText(formatter.format(todayRevenue));
         salesCountLabel.setText(todaySalesCount + " completed sales");
