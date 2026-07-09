@@ -22,10 +22,40 @@
    The root is the whole window. We set the cream background and default font.
    -------------------------------------------------------------------------- */
 .root {
-    -fx-font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
+    -fx-font-family: 'Segoe UI', Helvetica, Arial, sans-serif;  /* the ONE app font */
     -fx-font-size: 14px;                 /* body text size */
     -fx-background-color: #FAF6EE;       /* cream background */
     -fx-text-fill: #4A2C1D;              /* deep brown text */
+}
+
+/* ONE font family for the WHOLE app.
+   Setting it on .root above already makes most screens inherit it. But a few
+   controls (combo-box dropdowns, menus) open in their own popup windows that
+   do NOT inherit from .root, so they would otherwise show the operating
+   system's default font. We list every control here with the SAME font family
+   so headings, labels, buttons, inputs, tables and charts all match exactly.
+   Note: this only sets the font FAMILY - sizes and weights stay as defined
+   elsewhere, so nothing else about the look changes. If you ever change the
+   font, change it here AND in .root above so they stay identical. */
+.label,
+.button,
+.toggle-button,
+.check-box,
+.text-field,
+.password-field,
+.text-area,
+.combo-box,
+.combo-box .list-cell,
+.combo-box-popup .list-cell,
+.menu-item,
+.context-menu,
+.table-view,
+.table-view .column-header .label,
+.table-cell,
+.chart,
+.chart-legend,
+.chart-pie-label {
+    -fx-font-family: 'Segoe UI', Helvetica, Arial, sans-serif;
 }
 
 
