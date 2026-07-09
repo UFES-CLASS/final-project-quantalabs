@@ -70,6 +70,12 @@ public class JamuMixerController {
     // Runs automatically when the screen opens.
     @FXML
     public void initialize() {
+        // The blend name (e.g. "Custom Jamu Blend") is large text, so give it
+        // room to grow and pad it so descenders (j, g, y, p) are never clipped.
+        resultBlendLabel.setMinHeight(javafx.scene.control.Label.USE_PREF_SIZE);
+        resultBlendLabel.setPadding(new javafx.geometry.Insets(6, 10, 6, 10));
+        resultBlendLabel.setWrapText(true);
+
         // Make a toggle button for each ingredient.
         for (String[] ingredient : ingredients) {
             // English name first, then the Indonesian name in parentheses,

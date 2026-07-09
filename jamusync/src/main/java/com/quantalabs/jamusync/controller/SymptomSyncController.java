@@ -223,6 +223,10 @@ public class SymptomSyncController {
 
         Label name = new Label(product.getName());
         name.getStyleClass().add("detail-name");
+        // Let the name grow to its full height and wrap so descenders
+        // (j, g, y, p) in product names are never clipped at the bottom.
+        name.setWrapText(true);
+        name.setMinHeight(javafx.scene.layout.Region.USE_PREF_SIZE);
 
         Label description = new Label(
             product.getDescription() != null && !product.getDescription().isEmpty()
