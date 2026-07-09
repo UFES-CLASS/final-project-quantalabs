@@ -10,7 +10,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class LoginController {
+// Extends BaseController to reuse its shared helper methods (navigateTo, etc.).
+public class LoginController extends BaseController {
 
     @FXML
     private TextField usernameField;
@@ -51,11 +52,11 @@ public class LoginController {
             JamuSyncApp.setCurrentUser(user);
             System.out.println("Login successful for user: " + user.getUsername() + " with role: " + user.getRole());
             
-            // Redirect based on role
+            // Redirect based on role, using the inherited navigateTo() helper.
             if ("owner".equalsIgnoreCase(user.getRole())) {
-                JamuSyncApp.changeScene("/com/quantalabs/jamusync/fxml/OwnerDashboard.fxml", "JamuSync - Owner Dashboard");
+                navigateTo("/com/quantalabs/jamusync/fxml/OwnerDashboard.fxml", event);
             } else if ("staff".equalsIgnoreCase(user.getRole())) {
-                JamuSyncApp.changeScene("/com/quantalabs/jamusync/fxml/StaffDashboard.fxml", "JamuSync - Staff Dashboard");
+                navigateTo("/com/quantalabs/jamusync/fxml/StaffDashboard.fxml", event);
             } else {
                 errorLabel.setText("Invalid user role configuration.");
                 loginButton.setDisable(false);
@@ -70,6 +71,6 @@ public class LoginController {
     public void handleGuestBrowse(ActionEvent event) {
         System.out.println("Browsing as guest...");
         JamuSyncApp.setCurrentUser(null); // Guest
-        JamuSyncApp.changeScene("/com/quantalabs/jamusync/fxml/HerbMatrix.fxml", "JamuSync - Herb Matrix");
+        navigateTo("/com/quantalabs/jamusync/fxml/HerbMatrix.fxml", event);
     }
 }

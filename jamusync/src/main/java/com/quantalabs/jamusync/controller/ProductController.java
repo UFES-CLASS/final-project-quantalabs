@@ -24,7 +24,8 @@ import java.io.File;
 import java.text.DecimalFormat;
 import java.util.List;
 
-public class ProductController {
+// Extends BaseController to reuse the shared navigateTo() helper.
+public class ProductController extends BaseController {
 
     @FXML private TableView<Product> productTable;
     @FXML private TableColumn<Product, Integer> colId;
@@ -191,7 +192,8 @@ public class ProductController {
 
     @FXML
     public void handleBack(ActionEvent event) {
-        JamuSyncApp.changeScene("/com/quantalabs/jamusync/fxml/OwnerDashboard.fxml", "JamuSync - Owner Dashboard");
+        // Uses the inherited navigateTo() helper from BaseController.
+        navigateTo("/com/quantalabs/jamusync/fxml/OwnerDashboard.fxml", event);
     }
 
     private String validateForm() {

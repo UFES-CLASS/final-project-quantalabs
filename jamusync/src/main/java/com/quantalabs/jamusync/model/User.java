@@ -1,12 +1,12 @@
 package com.quantalabs.jamusync.model;
 
-public class User {
-    private int id;
+// A User IS-A Person, and a Person IS-A BaseModel. So by extending Person,
+// User inherits fullName from Person AND id/createdAt from BaseModel.
+public class User extends Person {
     private String username;
     private String passwordHash;
     private String role; // 'owner' or 'staff'
     private boolean isActive;
-    private String createdAt;
 
     public User() {}
 
@@ -19,13 +19,9 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    // getId()/setId() come from BaseModel; getFullName()/setFullName() come
+    // from Person; getCreatedAt()/setCreatedAt() come from BaseModel. None of
+    // them need to be written again here.
 
     public String getUsername() {
         return username;
@@ -59,12 +55,10 @@ public class User {
         isActive = active;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+    // Required by BaseModel: a short description of this user.
+    @Override
+    public String getSummary() {
+        return username + " (" + role + ")";
     }
 
     @Override

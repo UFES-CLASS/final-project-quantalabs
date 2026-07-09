@@ -1,7 +1,8 @@
 package com.quantalabs.jamusync.model;
 
-public class Product {
-    private int id;
+// Product "extends BaseModel", so it INHERITS the id and createdAt fields
+// (and their getters/setters) instead of declaring them again here.
+public class Product extends BaseModel {
     private String name;
     private String description;
     private String ingredients;
@@ -12,7 +13,6 @@ public class Product {
     private int lowStockThreshold;
     private String imagePath;
     private boolean isActive;
-    private String createdAt;
 
     public Product() {}
 
@@ -33,13 +33,8 @@ public class Product {
         this.createdAt = createdAt;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    // Note: getId()/setId() are inherited from BaseModel, so they are gone
+    // from here. Same for getCreatedAt()/setCreatedAt() below.
 
     public String getName() {
         return name;
@@ -121,12 +116,11 @@ public class Product {
         isActive = active;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+    // getSummary() is REQUIRED because BaseModel declared it abstract.
+    // Each model describes itself in its own way (polymorphism).
+    @Override
+    public String getSummary() {
+        return name + " - " + price + " (stock: " + stock + ")";
     }
 
     @Override

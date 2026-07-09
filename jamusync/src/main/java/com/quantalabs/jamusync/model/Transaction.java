@@ -1,7 +1,7 @@
 package com.quantalabs.jamusync.model;
 
-public class Transaction {
-    private int id;
+// Transaction "extends BaseModel", inheriting id and createdAt from the parent.
+public class Transaction extends BaseModel {
     private String orderType; // 'walk-in' or 'whatsapp'
     private String buyerName;
     private Integer voucherId; // Nullable
@@ -10,7 +10,6 @@ public class Transaction {
     private double total;
     private String status; // 'Pending', 'Completed', 'Cancelled'
     private int recordedBy;
-    private String createdAt;
     private String updatedAt;
 
     // Join helper field for display
@@ -34,13 +33,8 @@ public class Transaction {
         this.updatedAt = updatedAt;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    // getId()/setId() and getCreatedAt()/setCreatedAt() are inherited from
+    // BaseModel, so they are not repeated here.
 
     public String getOrderType() {
         return orderType;
@@ -106,14 +100,6 @@ public class Transaction {
         this.recordedBy = recordedBy;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public String getUpdatedAt() {
         return updatedAt;
     }
@@ -128,6 +114,12 @@ public class Transaction {
 
     public void setRecordedByUsername(String recordedByUsername) {
         this.recordedByUsername = recordedByUsername;
+    }
+
+    // Required by BaseModel: a short description of this transaction.
+    @Override
+    public String getSummary() {
+        return "Transaction #" + id + " - " + status + " (total: " + total + ")";
     }
 
     @Override

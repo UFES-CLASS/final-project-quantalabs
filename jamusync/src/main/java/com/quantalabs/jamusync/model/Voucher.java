@@ -1,7 +1,7 @@
 package com.quantalabs.jamusync.model;
 
-public class Voucher {
-    private int id;
+// Voucher "extends BaseModel", inheriting id and createdAt from the parent.
+public class Voucher extends BaseModel {
     private String code;
     private String discountType; // 'fixed' or 'percentage'
     private double discountValue;
@@ -9,17 +9,11 @@ public class Voucher {
     private int usageCount;
     private String expiryDate;
     private boolean isActive;
-    private String createdAt;
 
     public Voucher() {}
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
+    // getId()/setId() and getCreatedAt()/setCreatedAt() are inherited from
+    // BaseModel, so they are not repeated here.
 
     public String getCode() {
         return code;
@@ -77,12 +71,10 @@ public class Voucher {
         isActive = active;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
+    // Required by BaseModel: a short description of this voucher.
+    @Override
+    public String getSummary() {
+        return "Voucher " + code + " (" + discountType + " " + discountValue + ")";
     }
 
     public double calculateDiscount(double subtotal) {

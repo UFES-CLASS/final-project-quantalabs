@@ -16,7 +16,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -26,7 +25,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
-public class OwnerDashboardController {
+// Extends BaseController to reuse shared helpers (navigateTo, showAlert,
+// getCurrentUser) instead of duplicating that code here.
+public class OwnerDashboardController extends BaseController {
 
     @FXML
     private Label profileLabel;
@@ -75,8 +76,9 @@ public class OwnerDashboardController {
 
     @FXML
     public void initialize() {
-        if (JamuSyncApp.getCurrentUser() != null) {
-            profileLabel.setText(JamuSyncApp.getCurrentUser().getUsername());
+        // getCurrentUser() is inherited from BaseController.
+        if (getCurrentUser() != null) {
+            profileLabel.setText(getCurrentUser().getUsername());
         }
 
         loadDashboardMetrics();
@@ -151,53 +153,48 @@ public class OwnerDashboardController {
         transactionsTable.setItems(txObservableList);
     }
 
-    // Navigations (Alerts for unbuilt items)
+    // Navigations - all use the inherited navigateTo() helper from BaseController.
     @FXML
     public void handleNavProducts(ActionEvent event) {
-        JamuSyncApp.changeScene("/com/quantalabs/jamusync/fxml/ProductManagement.fxml", "JamuSync - Product Management");
+        navigateTo("/com/quantalabs/jamusync/fxml/ProductManagement.fxml", event);
     }
 
     @FXML
     public void handleNavStaff(ActionEvent event) {
-        JamuSyncApp.changeScene("/com/quantalabs/jamusync/fxml/StaffManagement.fxml", "JamuSync - Staff Management");
+        navigateTo("/com/quantalabs/jamusync/fxml/StaffManagement.fxml", event);
     }
 
     @FXML
     public void handleNavInventory(ActionEvent event) {
-        JamuSyncApp.changeScene("/com/quantalabs/jamusync/fxml/Inventory.fxml", "JamuSync - Inventory Management");
+        navigateTo("/com/quantalabs/jamusync/fxml/Inventory.fxml", event);
     }
 
     @FXML
     public void handleNavSales(ActionEvent event) {
-        JamuSyncApp.changeScene("/com/quantalabs/jamusync/fxml/Sales.fxml", "JamuSync - Sales POS");
+        navigateTo("/com/quantalabs/jamusync/fxml/Sales.fxml", event);
     }
 
     @FXML
     public void handleNavTransactions(ActionEvent event) {
-        JamuSyncApp.changeScene("/com/quantalabs/jamusync/fxml/TransactionHistory.fxml", "JamuSync - Transaction History");
+        navigateTo("/com/quantalabs/jamusync/fxml/TransactionHistory.fxml", event);
     }
 
     @FXML
     public void handleNavVouchers(ActionEvent event) {
-        JamuSyncApp.changeScene("/com/quantalabs/jamusync/fxml/VoucherManagement.fxml", "JamuSync - Voucher Management");
+        navigateTo("/com/quantalabs/jamusync/fxml/VoucherManagement.fxml", event);
     }
 
     @FXML
     public void handleNavReports(ActionEvent event) {
-        JamuSyncApp.changeScene("/com/quantalabs/jamusync/fxml/FinancialReport.fxml", "JamuSync - Financial Reports");
+        navigateTo("/com/quantalabs/jamusync/fxml/FinancialReport.fxml", event);
     }
 
     @FXML
     public void handleLogout(ActionEvent event) {
         JamuSyncApp.setCurrentUser(null);
-        JamuSyncApp.changeScene("/com/quantalabs/jamusync/fxml/Login.fxml", "JamuSync - Sign In");
+        navigateTo("/com/quantalabs/jamusync/fxml/Login.fxml", event);
     }
 
-    private void showInfo(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("JamuSync - Info");
-        alert.setHeaderText(title);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
+    // The old private showInfo() helper was removed - we now inherit
+    // showAlert() from BaseController instead of duplicating it here.
 }

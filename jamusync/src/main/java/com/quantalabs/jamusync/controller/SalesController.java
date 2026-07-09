@@ -1,6 +1,5 @@
 package com.quantalabs.jamusync.controller;
 
-import com.quantalabs.jamusync.JamuSyncApp;
 import com.quantalabs.jamusync.dao.ProductDAO;
 import com.quantalabs.jamusync.dao.VoucherDAO;
 import com.quantalabs.jamusync.model.Product;
@@ -22,13 +21,14 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SalesController {
+// Extends BaseController to reuse shared helpers (getCurrentUser, showAlert,
+// navigateTo) instead of writing that code again here.
+public class SalesController extends BaseController {
 
     @FXML private ComboBox<String> orderTypeCombo;
     @FXML private TextField buyerNameField;
@@ -199,7 +199,7 @@ public class SalesController {
 
     @FXML
     public void handleCompleteSale(ActionEvent event) {
-        User currentUser = JamuSyncApp.getCurrentUser();
+        User currentUser = getCurrentUser(); // inherited from BaseController
         if (currentUser == null) {
             showError("You must be logged in to complete a sale.");
             return;
@@ -230,11 +230,9 @@ public class SalesController {
         TransactionService.SaleResult result = transactionService.completeSale(transaction, items);
 
         if (result.isSuccess()) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("JamuSync - Sale Complete");
-            alert.setHeaderText("Transaction #" + result.getTransactionId());
-            alert.setContentText("Sale completed successfully.\nTotal: " + formatter.format(total));
-            alert.showAndWait();
+            // Uses the inherited showAlert() helper instead of building an Alert here.
+            showAlert("Transaction #" + result.getTransactionId(),
+                    "Sale completed successfully.\nTotal: " + formatter.format(total));
 
             handleClearCart(null);
             loadProducts();
@@ -259,11 +257,11 @@ public class SalesController {
 
     @FXML
     public void handleBack(ActionEvent event) {
-        User user = JamuSyncApp.getCurrentUser();
+        User user = getCurrentUser(); // inherited from BaseController
         if (user != null && "owner".equalsIgnoreCase(user.getRole())) {
-            JamuSyncApp.changeScene("/com/quantalabs/jamusync/fxml/OwnerDashboard.fxml", "JamuSync - Owner Dashboard");
+            navigateTo("/com/quantalabs/jamusync/fxml/OwnerDashboard.fxml", event);
         } else {
-            JamuSyncApp.changeScene("/com/quantalabs/jamusync/fxml/StaffDashboard.fxml", "JamuSync - Staff Dashboard");
+            navigateTo("/com/quantalabs/jamusync/fxml/StaffDashboard.fxml", event);
         }
     }
 
