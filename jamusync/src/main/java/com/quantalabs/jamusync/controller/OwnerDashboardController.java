@@ -6,6 +6,7 @@ import com.quantalabs.jamusync.dao.TransactionDAO;
 import com.quantalabs.jamusync.dao.TransactionItemDAO;
 import com.quantalabs.jamusync.model.Product;
 import com.quantalabs.jamusync.model.Transaction;
+import com.quantalabs.jamusync.util.LanguageManager;
 import com.quantalabs.jamusync.util.PendingOrderQueue;
 
 import javafx.beans.property.SimpleDoubleProperty;
@@ -16,6 +17,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -39,6 +41,34 @@ public class OwnerDashboardController extends BaseController {
     private Label lowStockAlertLabel;
     @FXML
     private Label pendingOrdersLabel;
+
+    // Sidebar navigation buttons (their text changes with the language).
+    @FXML
+    private Button navDashboardBtn;
+    @FXML
+    private Button navProductsBtn;
+    @FXML
+    private Button navStaffBtn;
+    @FXML
+    private Button navInventoryBtn;
+    @FXML
+    private Button navSalesBtn;
+    @FXML
+    private Button navHistoryBtn;
+    @FXML
+    private Button navVouchersBtn;
+    @FXML
+    private Button navReportsBtn;
+    @FXML
+    private Button signOutBtn;
+
+    // Metric card titles (also translated).
+    @FXML
+    private Label revenueTitleLabel;
+    @FXML
+    private Label lowStockTitleLabel;
+    @FXML
+    private Label pendingTitleLabel;
 
     // Tables
     @FXML
@@ -80,6 +110,10 @@ public class OwnerDashboardController extends BaseController {
         if (getCurrentUser() != null) {
             profileLabel.setText(getCurrentUser().getUsername());
         }
+
+        // Translate the sidebar and metric titles into the chosen language.
+        // The language persists across screens because LanguageManager is static.
+        applyLanguage();
 
         loadDashboardMetrics();
         setupTableColumns();
@@ -151,6 +185,23 @@ public class OwnerDashboardController extends BaseController {
         List<Transaction> txList = transactionDAO.getRecentTransactions(10);
         ObservableList<Transaction> txObservableList = FXCollections.observableArrayList(txList);
         transactionsTable.setItems(txObservableList);
+    }
+
+    /** Set the sidebar button text and metric titles from the current language. */
+    private void applyLanguage() {
+        navDashboardBtn.setText(LanguageManager.getString("nav.dashboard"));
+        navProductsBtn.setText(LanguageManager.getString("nav.products"));
+        navStaffBtn.setText(LanguageManager.getString("nav.staff"));
+        navInventoryBtn.setText(LanguageManager.getString("nav.inventory"));
+        navSalesBtn.setText(LanguageManager.getString("nav.sales"));
+        navHistoryBtn.setText(LanguageManager.getString("nav.history"));
+        navVouchersBtn.setText(LanguageManager.getString("nav.vouchers"));
+        navReportsBtn.setText(LanguageManager.getString("nav.reports"));
+        signOutBtn.setText(LanguageManager.getString("nav.signout"));
+
+        revenueTitleLabel.setText(LanguageManager.getString("dashboard.revenue"));
+        lowStockTitleLabel.setText(LanguageManager.getString("dashboard.lowstock"));
+        pendingTitleLabel.setText(LanguageManager.getString("dashboard.pending"));
     }
 
     // Navigations - all use the inherited navigateTo() helper from BaseController.

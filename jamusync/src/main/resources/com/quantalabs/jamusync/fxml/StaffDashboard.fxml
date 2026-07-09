@@ -54,13 +54,13 @@
                     <children>
                         <VBox spacing="6.0" VBox.vgrow="ALWAYS">
                             <children>
-                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="sidebar-btn, sidebar-btn-active" text="Dashboard" />
-                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNavSales" styleClass="sidebar-btn" text="Sales POS" />
-                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNavInventory" styleClass="sidebar-btn" text="Inventory" />
+                                <Button fx:id="navDashboardBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="sidebar-btn, sidebar-btn-active" text="Dashboard" />
+                                <Button fx:id="navSalesBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNavSales" styleClass="sidebar-btn" text="Sales POS" />
+                                <Button fx:id="navInventoryBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNavInventory" styleClass="sidebar-btn" text="Inventory" />
                             </children>
                         </VBox>
                         <Region VBox.vgrow="ALWAYS" />
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLogout" styleClass="sidebar-btn" text="Sign Out" />
+                        <Button fx:id="signOutBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLogout" styleClass="sidebar-btn" text="Sign Out" />
                     </children>
                 </VBox>
 
@@ -79,7 +79,7 @@
                                         <!-- Metric Card 1: today's revenue -->
                                         <VBox spacing="6.0" styleClass="card" HBox.hgrow="ALWAYS">
                                             <children>
-                                                <Label styleClass="metric-label" text="Your Sales Revenue (Today)" />
+                                                <Label fx:id="revenueTitleLabel" styleClass="metric-label" text="Your Sales Revenue (Today)" />
                                                 <Label fx:id="revenueLabel" styleClass="metric-value" text="Rp 0" />
                                                 <Label styleClass="metric-accent" text="Completed orders recorded by you today" />
                                             </children>

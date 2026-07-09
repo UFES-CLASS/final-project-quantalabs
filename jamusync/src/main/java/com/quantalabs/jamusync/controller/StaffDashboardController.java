@@ -3,6 +3,7 @@ package com.quantalabs.jamusync.controller;
 import com.quantalabs.jamusync.JamuSyncApp;
 import com.quantalabs.jamusync.dao.TransactionDAO;
 import com.quantalabs.jamusync.model.Transaction;
+import com.quantalabs.jamusync.util.LanguageManager;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -12,6 +13,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -27,6 +29,20 @@ public class StaffDashboardController {
     private Label revenueLabel;
     @FXML
     private Label salesCountLabel;
+
+    // Sidebar navigation buttons (text changes with the language).
+    @FXML
+    private Button navDashboardBtn;
+    @FXML
+    private Button navSalesBtn;
+    @FXML
+    private Button navInventoryBtn;
+    @FXML
+    private Button signOutBtn;
+
+    // Revenue metric card title (also translated).
+    @FXML
+    private Label revenueTitleLabel;
 
     // Table
     @FXML
@@ -55,9 +71,23 @@ public class StaffDashboardController {
             staffId = JamuSyncApp.getCurrentUser().getId();
         }
 
+        // Translate the sidebar and metric title into the chosen language.
+        // The choice persists across screens because LanguageManager is static.
+        applyLanguage();
+
         loadDashboardMetrics(staffId);
         setupTableColumns();
         loadTableData(staffId);
+    }
+
+    /** Set the sidebar button text and metric title from the current language. */
+    private void applyLanguage() {
+        navDashboardBtn.setText(LanguageManager.getString("nav.dashboard"));
+        navSalesBtn.setText(LanguageManager.getString("nav.sales"));
+        navInventoryBtn.setText(LanguageManager.getString("nav.inventory"));
+        signOutBtn.setText(LanguageManager.getString("nav.signout"));
+
+        revenueTitleLabel.setText(LanguageManager.getString("dashboard.revenue"));
     }
 
     private void loadDashboardMetrics(int staffId) {

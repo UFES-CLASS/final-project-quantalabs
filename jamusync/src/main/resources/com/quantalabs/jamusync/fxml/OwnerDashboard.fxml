@@ -58,18 +58,18 @@
                     <children>
                         <VBox spacing="6.0" VBox.vgrow="ALWAYS">
                             <children>
-                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="sidebar-btn, sidebar-btn-active" text="Dashboard" />
-                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNavProducts" styleClass="sidebar-btn" text="Products" />
-                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNavStaff" styleClass="sidebar-btn" text="Staff" />
-                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNavInventory" styleClass="sidebar-btn" text="Inventory" />
-                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNavSales" styleClass="sidebar-btn" text="Sales POS" />
-                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNavTransactions" styleClass="sidebar-btn" text="History" />
-                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNavVouchers" styleClass="sidebar-btn" text="Vouchers" />
-                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNavReports" styleClass="sidebar-btn" text="Reports" />
+                                <Button fx:id="navDashboardBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" styleClass="sidebar-btn, sidebar-btn-active" text="Dashboard" />
+                                <Button fx:id="navProductsBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNavProducts" styleClass="sidebar-btn" text="Products" />
+                                <Button fx:id="navStaffBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNavStaff" styleClass="sidebar-btn" text="Staff" />
+                                <Button fx:id="navInventoryBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNavInventory" styleClass="sidebar-btn" text="Inventory" />
+                                <Button fx:id="navSalesBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNavSales" styleClass="sidebar-btn" text="Sales POS" />
+                                <Button fx:id="navHistoryBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNavTransactions" styleClass="sidebar-btn" text="History" />
+                                <Button fx:id="navVouchersBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNavVouchers" styleClass="sidebar-btn" text="Vouchers" />
+                                <Button fx:id="navReportsBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNavReports" styleClass="sidebar-btn" text="Reports" />
                             </children>
                         </VBox>
                         <Region VBox.vgrow="ALWAYS" />
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLogout" styleClass="sidebar-btn" text="Sign Out" />
+                        <Button fx:id="signOutBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLogout" styleClass="sidebar-btn" text="Sign Out" />
                     </children>
                 </VBox>
 
@@ -88,7 +88,7 @@
                                         <!-- Metric Card 1: revenue -->
                                         <VBox spacing="6.0" styleClass="card" HBox.hgrow="ALWAYS">
                                             <children>
-                                                <Label styleClass="metric-label" text="Today's Revenue" />
+                                                <Label fx:id="revenueTitleLabel" styleClass="metric-label" text="Today's Revenue" />
                                                 <Label fx:id="revenueLabel" styleClass="metric-value" text="Rp 0" />
                                                 <Label fx:id="salesCountLabel" styleClass="metric-accent" text="0 completed sales" />
                                             </children>
@@ -97,7 +97,7 @@
                                         <!-- Metric Card 2: low stock -->
                                         <VBox spacing="6.0" styleClass="card" HBox.hgrow="ALWAYS">
                                             <children>
-                                                <Label styleClass="metric-label" text="Low Stock Alerts" />
+                                                <Label fx:id="lowStockTitleLabel" styleClass="metric-label" text="Low Stock Alerts" />
                                                 <Label fx:id="lowStockAlertLabel" styleClass="metric-warning" text="0 items" />
                                                 <Label styleClass="metric-accent" text="Requires restocking soon" />
                                             </children>
@@ -106,7 +106,7 @@
                                         <!-- Metric Card 3: pending orders -->
                                         <VBox spacing="6.0" styleClass="card" HBox.hgrow="ALWAYS">
                                             <children>
-                                                <Label styleClass="metric-label" text="Pending Orders" />
+                                                <Label fx:id="pendingTitleLabel" styleClass="metric-label" text="Pending Orders" />
                                                 <Label fx:id="pendingOrdersLabel" styleClass="metric-positive" text="0 orders" />
                                                 <Label styleClass="metric-accent" text="Awaiting confirmation" />
                                             </children>
