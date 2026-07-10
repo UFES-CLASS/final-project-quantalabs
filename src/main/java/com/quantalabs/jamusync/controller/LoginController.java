@@ -51,10 +51,12 @@ public class LoginController {
             JamuSyncApp.setCurrentUser(user);
             System.out.println("Login successful for user: " + user.getUsername() + " with role: " + user.getRole());
             
-            // Redirect based on role
-            if ("owner".equalsIgnoreCase(user.getRole())) {
+            // Redirect based on role. Trim/normalize so stray whitespace or casing
+            // in the stored role never blocks a valid staff or owner login.
+            String role = user.getRole() == null ? "" : user.getRole().trim();
+            if ("owner".equalsIgnoreCase(role)) {
                 JamuSyncApp.changeScene("/com/quantalabs/jamusync/fxml/OwnerDashboard.fxml", "JamuSync - Owner Dashboard");
-            } else if ("staff".equalsIgnoreCase(user.getRole())) {
+            } else if ("staff".equalsIgnoreCase(role)) {
                 JamuSyncApp.changeScene("/com/quantalabs/jamusync/fxml/StaffDashboard.fxml", "JamuSync - Staff Dashboard");
             } else {
                 errorLabel.setText("Invalid user role configuration.");
