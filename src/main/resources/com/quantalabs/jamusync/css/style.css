@@ -61,7 +61,7 @@
 
 /* Main page title, for example "Sales POS" */
 .header-title {
-    -fx-padding: 4 8 4 8;
+    -fx-padding: 6 10 6 10;              /* roomy so wider/taller Windows fonts + descenders (g,j,p,y) never clip */
     -fx-label-padding: 2;
     -fx-font-size: 28px;
     -fx-font-weight: bold;
@@ -131,7 +131,7 @@
 /* The big JamuSync logo text used inside a header bar.
    We keep it 45px so it is large and prominent in every header. */
 .header-logo {
-    -fx-padding: 4 8 4 8;
+    -fx-padding: 6 10 6 10;              /* roomy so wider/taller Windows fonts + descenders (g,j,p,y) never clip */
     -fx-label-padding: 2;
     -fx-font-size: 45px;
     -fx-font-weight: bold;
@@ -140,7 +140,7 @@
 
 /* The page title when it sits on the dark header bar */
 .header-bar-title {
-    -fx-padding: 4 8 4 8;
+    -fx-padding: 6 10 6 10;              /* roomy so wider/taller Windows fonts + descenders (g,j,p,y) never clip */
     -fx-label-padding: 2;
     -fx-font-size: 22px;
     -fx-font-weight: bold;
@@ -172,7 +172,7 @@
 
 /* Title inside a card */
 .card-title {
-    -fx-padding: 4 8 4 8;
+    -fx-padding: 6 10 6 10;              /* roomy so wider/taller Windows fonts + descenders (g,j,p,y) never clip */
     -fx-label-padding: 2;
     -fx-font-size: 18px;
     -fx-font-weight: bold;
@@ -291,9 +291,11 @@
     -fx-background-color: #9A2E2E;
 }
 
-/* Small button used inside table rows (like the cart Remove button) */
+/* Small button used inside table rows (like the cart Remove button).
+   Even the compact button keeps enough vertical room that descenders on
+   letters like g/y/p are never clipped on Windows. */
 .button-small {
-    -fx-padding: 5px 12px;
+    -fx-padding: 6px 16px;
     -fx-font-size: 12px;
     -fx-background-radius: 8px;
 }
@@ -490,7 +492,7 @@
 
 /* The big number itself */
 .metric-value {
-    -fx-padding: 4 8 4 8;
+    -fx-padding: 6 10 6 10;              /* roomy so wider/taller Windows fonts + descenders (g,j,p,y) never clip */
     -fx-label-padding: 2;
     -fx-font-size: 28px;
     -fx-font-weight: bold;
@@ -499,7 +501,7 @@
 
 /* A green (good news) big number */
 .metric-positive {
-    -fx-padding: 4 8 4 8;
+    -fx-padding: 6 10 6 10;              /* roomy so wider/taller Windows fonts + descenders (g,j,p,y) never clip */
     -fx-label-padding: 2;
     -fx-font-size: 28px;
     -fx-font-weight: bold;
@@ -508,7 +510,7 @@
 
 /* A red / orange (warning) big number */
 .metric-warning {
-    -fx-padding: 4 8 4 8;
+    -fx-padding: 6 10 6 10;              /* roomy so wider/taller Windows fonts + descenders (g,j,p,y) never clip */
     -fx-label-padding: 2;
     -fx-font-size: 28px;
     -fx-font-weight: bold;
@@ -526,7 +528,7 @@
    12. PRODUCT DETAIL LABELS (catalog details / product cards)
    -------------------------------------------------------------------------- */
 .detail-name {
-    -fx-padding: 4 8 4 8;
+    -fx-padding: 6 10 6 10;              /* roomy so wider/taller Windows fonts + descenders (g,j,p,y) never clip */
     -fx-label-padding: 2;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
@@ -620,7 +622,7 @@
 
 /* Big JamuSync name inside the login header */
 .login-brand-title {
-    -fx-padding: 4 8 4 8;
+    -fx-padding: 6 10 6 10;              /* roomy so wider/taller Windows fonts + descenders (g,j,p,y) never clip */
     -fx-label-padding: 2;
     -fx-font-size: 30px;
     -fx-font-weight: bold;
@@ -721,7 +723,7 @@
 
 /* The big guest page title */
 .guest-title {
-    -fx-padding: 4 8 4 8;
+    -fx-padding: 6 10 6 10;              /* roomy so wider/taller Windows fonts + descenders (g,j,p,y) never clip */
     -fx-label-padding: 2;
     -fx-font-size: 36px;
     -fx-font-weight: bold;

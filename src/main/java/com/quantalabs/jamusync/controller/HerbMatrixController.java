@@ -50,6 +50,7 @@ public class HerbMatrixController {
             Label empty = new Label("No products available. Ask the admin to add products first.");
             empty.getStyleClass().add("label-muted");
             empty.setWrapText(true);
+            empty.setMinHeight(Label.USE_PREF_SIZE);
             herbGrid.getChildren().add(empty);
         } else {
             // Make a card for every product and add it to the grid.
@@ -100,6 +101,7 @@ public class HerbMatrixController {
         Label nameLabel = new Label(product.getName());
         nameLabel.getStyleClass().add("detail-name");
         nameLabel.setWrapText(true);
+        nameLabel.setMinHeight(Label.USE_PREF_SIZE);
         card.getChildren().add(nameLabel);
 
         // --- Price in Rupiah ---
@@ -112,6 +114,7 @@ public class HerbMatrixController {
             Label descLabel = new Label(product.getDescription());
             descLabel.getStyleClass().add("label-muted");
             descLabel.setWrapText(true);
+            descLabel.setMinHeight(Label.USE_PREF_SIZE);
             card.getChildren().add(descLabel);
         }
 
@@ -122,6 +125,7 @@ public class HerbMatrixController {
             Label benefitsText = new Label(product.getHealthBenefits());
             benefitsText.getStyleClass().add("text-dark");
             benefitsText.setWrapText(true);
+            benefitsText.setMinHeight(Label.USE_PREF_SIZE);
             card.getChildren().addAll(benefitsTitle, benefitsText);
         }
 
@@ -132,6 +136,7 @@ public class HerbMatrixController {
             Label ingredientsText = new Label(product.getIngredients());
             ingredientsText.getStyleClass().add("text-dark");
             ingredientsText.setWrapText(true);
+            ingredientsText.setMinHeight(Label.USE_PREF_SIZE);
             card.getChildren().addAll(ingredientsTitle, ingredientsText);
         }
 

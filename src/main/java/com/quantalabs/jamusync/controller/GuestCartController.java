@@ -68,6 +68,7 @@ public class GuestCartController {
             Label empty = new Label("Your cart is empty. Browse our herbs and add some jamu to get started!");
             empty.getStyleClass().add("label-muted");
             empty.setWrapText(true);
+            empty.setMinHeight(Label.USE_PREF_SIZE);
 
             Button browse = new Button("Start Browsing");
             browse.setOnAction(e -> handleStartBrowsing());
@@ -91,10 +92,14 @@ public class GuestCartController {
 
         // Left: product name and unit price.
         VBox info = new VBox(4);
+        HBox.setHgrow(info, javafx.scene.layout.Priority.ALWAYS);
         Label name = new Label(item.getProductName());
         name.getStyleClass().add("detail-name");
+        name.setWrapText(true);
+        name.setMinHeight(Label.USE_PREF_SIZE);
         Label unit = new Label(formatter.format(item.getPrice()) + " each");
         unit.getStyleClass().add("label-muted");
+        unit.setMinHeight(Label.USE_PREF_SIZE);
         info.getChildren().addAll(name, unit);
 
         Region spacer = new Region();

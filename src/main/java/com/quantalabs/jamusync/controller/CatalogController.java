@@ -103,16 +103,19 @@ public class CatalogController {
         loadProductImage(imageView, product.getImagePath());
 
         Label nameLabel = new Label(product.getName());
-        nameLabel.setWrapText(true);
         nameLabel.getStyleClass().add("detail-name");
         nameLabel.setWrapText(true);
+        nameLabel.setMinHeight(Label.USE_PREF_SIZE); // grow to fit wrapped lines, never clip
         nameLabel.setStyle("-fx-text-alignment: center;");
 
         Label priceLabel = new Label(formatter.format(product.getPrice()));
         priceLabel.getStyleClass().add("detail-price");
+        priceLabel.setMinHeight(Label.USE_PREF_SIZE);
 
         Label stockLabel = new Label("In stock: " + product.getStock());
         stockLabel.getStyleClass().add("label-muted");
+        stockLabel.setWrapText(true);
+        stockLabel.setMinHeight(Label.USE_PREF_SIZE);
 
         card.getChildren().addAll(imageView, nameLabel, priceLabel, stockLabel);
         card.setOnMouseClicked(e -> showProductDetails(product));

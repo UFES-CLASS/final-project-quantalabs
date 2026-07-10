@@ -52,14 +52,14 @@
                 <VBox spacing="10.0" HBox.hgrow="ALWAYS">
                     <children>
                         <Label styleClass="card-title" text="All Products" />
-                        <TableView fx:id="productTable" styleClass="table-view" VBox.vgrow="ALWAYS">
+                        <TableView fx:id="productTable" maxWidth="1.7976931348623157E308" styleClass="table-view" VBox.vgrow="ALWAYS">
                             <columns>
-                                <TableColumn fx:id="colId" prefWidth="40.0" style="-fx-alignment: CENTER;" text="ID" />
-                                <TableColumn fx:id="colName" prefWidth="180.0" text="Name" />
-                                <TableColumn fx:id="colPrice" prefWidth="90.0" style="-fx-alignment: CENTER-RIGHT;" text="Price" />
-                                <TableColumn fx:id="colStock" prefWidth="70.0" style="-fx-alignment: CENTER;" text="Stock" />
-                                <TableColumn fx:id="colThreshold" prefWidth="80.0" style="-fx-alignment: CENTER;" text="Threshold" />
-                                <TableColumn fx:id="colActive" prefWidth="80.0" style="-fx-alignment: CENTER;" text="Active" />
+                                <TableColumn fx:id="colId" minWidth="35.0" prefWidth="40.0" style="-fx-alignment: CENTER;" text="ID" />
+                                <TableColumn fx:id="colName" minWidth="130.0" prefWidth="180.0" text="Name" />
+                                <TableColumn fx:id="colPrice" minWidth="75.0" prefWidth="90.0" style="-fx-alignment: CENTER-RIGHT;" text="Price" />
+                                <TableColumn fx:id="colStock" minWidth="60.0" prefWidth="70.0" style="-fx-alignment: CENTER;" text="Stock" />
+                                <TableColumn fx:id="colThreshold" minWidth="80.0" prefWidth="80.0" style="-fx-alignment: CENTER;" text="Threshold" />
+                                <TableColumn fx:id="colActive" minWidth="65.0" prefWidth="80.0" style="-fx-alignment: CENTER;" text="Active" />
                             </columns>
                             <columnResizePolicy>
                                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
