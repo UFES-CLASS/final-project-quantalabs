@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- Root is a VBox: a light guest nav bar on top, then a 3 column body. -->
+<VBox alignment="TOP_CENTER" styleClass="root" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.quantalabs.jamusync.controller.JamuMixerController">
+    <stylesheets>
+        <URL value="@../css/style.css" />
+    </stylesheets>
+    <children>
+
+        <!-- GUEST NAV BAR: logo left, nav pills center, back button right.
+             maxWidth is uncapped so the bar spans the full window width. -->
+        <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" spacing="15.0" styleClass="guest-nav-bar">
+            <children>
+                <!-- JamuSync logo and QuantaLabs logo side by side -->
+                <HBox alignment="CENTER_LEFT" spacing="12.0">
+                    <children>
+                        <ImageView fitHeight="110.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/JamuSync_logofinal.png" />
+                            </image>
+                        </ImageView>
+                        <ImageView fitHeight="70.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/quantalabs-logo.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </HBox>
+                <Region HBox.hgrow="ALWAYS" />
+                <HBox alignment="CENTER" spacing="10.0">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#handleNavHerb" styleClass="nav-pill" text="Herb Matrix" />
+                        <!-- We are on this screen, so this pill is active -->
+                        <Button mnemonicParsing="false" styleClass="nav-pill, nav-pill-active" text="Jamu Mixer" />
+                        <Button mnemonicParsing="false" onAction="#handleNavSymptom" styleClass="nav-pill" text="Symptom Sync" />
+                    </children>
+                </HBox>
+                <Region HBox.hgrow="ALWAYS" />
+                <!-- Cart button (shows how many items are in the cart) -->
+                <Button fx:id="cartButton" mnemonicParsing="false" onAction="#handleNavCart" styleClass="nav-pill" text="Cart (0)" />
+                <Button mnemonicParsing="false" onAction="#handleBackToLogin" styleClass="button-outline" text="Back to Login" />
+            </children>
+        </HBox>
+
+        <!-- BODY: three columns, capped at 1200px and centered on wide screens -->
+        <HBox maxWidth="1200.0" spacing="20.0" VBox.vgrow="ALWAYS">
+            <padding>
+                <Insets bottom="24.0" left="24.0" right="24.0" top="24.0" />
+            </padding>
+            <children>
+
+                <!-- LEFT COLUMN: the ingredient list -->
+                <VBox maxWidth="280.0" minWidth="280.0" prefWidth="280.0" spacing="10.0">
+                    <children>
+                        <Label styleClass="guest-eyebrow" text="INGREDIENTS" />
+                        <Label fx:id="selectedCountLabel" styleClass="label-muted" text="(0 SELECTED)" />
+                        <ScrollPane fitToWidth="true" styleClass="scroll-pane" VBox.vgrow="ALWAYS">
+                            <content>
+                                <!-- The controller fills this VBox with ingredient buttons -->
+                                <VBox fx:id="ingredientBox" spacing="10.0">
+                                    <padding>
+                                        <Insets bottom="5.0" right="5.0" top="5.0" />
+                                    </padding>
+                                </VBox>
+                            </content>
+                        </ScrollPane>
+                    </children>
+                </VBox>
+
+                <!-- CENTER COLUMN: subtitle, image, brew button and result -->
+                <VBox alignment="TOP_CENTER" spacing="18.0" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label styleClass="guest-title" text="Jamu Mixer" />
+
+                        <!-- Subtitle in grey italic -->
+                        <Label style="-fx-font-style: italic;" styleClass="label-muted" text="Select ingredients to craft your personal jamu formula. Watch your health profile transform in real time, then brew." textAlignment="CENTER" wrapText="true" />
+
+                        <!-- The mortar and pestle picture in the middle -->
+                        <ImageView fitHeight="250.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" style="-fx-background-color: transparent;">
+                            <image>
+                                <Image url="@../images/mortar_pestle_New_one.png" />
+                            </image>
+                        </ImageView>
+
+                        <!-- Wide brew button. It is disabled until an ingredient is picked. -->
+                        <Button fx:id="brewButton" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleBrew" text="Select ingredients to brew" />
+
+                        <!-- Result card: hidden until the user clicks brew -->
+                        <VBox fx:id="resultCard" managed="false" maxWidth="360.0" spacing="8.0" styleClass="card" visible="false">
+                            <children>
+                                <Label styleClass="guest-eyebrow" text="YOUR BLEND" />
+                                <Label fx:id="resultBlendLabel" styleClass="card-title" text="" wrapText="true" />
+                                <Label fx:id="resultDescLabel" styleClass="label-muted" text="" wrapText="true" />
+                                <Button fx:id="addBlendButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAddBlend" text="Add Blend to Cart" />
+                                <Label fx:id="blendAddedLabel" styleClass="label-success" text="" />
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+
+                <!-- RIGHT COLUMN: the health profile -->
+                <VBox maxWidth="280.0" minWidth="280.0" prefWidth="280.0" spacing="16.0" styleClass="card">
+                    <children>
+                        <Label styleClass="guest-eyebrow" text="HEALTH PROFILE" />
+
+                        <!-- Immunity bar -->
+                        <VBox spacing="4.0">
+                            <children>
+                                <HBox alignment="CENTER_LEFT">
+                                    <children>
+                                        <Label styleClass="label-form" text="Immunity" />
+                                        <Region HBox.hgrow="ALWAYS" />
+                                        <Label fx:id="immunityPercentLabel" styleClass="text-dark" text="0%" />
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" styleClass="health-bar">
+                                    <children>
+                                        <Region fx:id="immunityFill" styleClass="health-bar-fill" />
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+
+                        <!-- Energy bar -->
+                        <VBox spacing="4.0">
+                            <children>
+                                <HBox alignment="CENTER_LEFT">
+                                    <children>
+                                        <Label styleClass="label-form" text="Energy" />
+                                        <Region HBox.hgrow="ALWAYS" />
+                                        <Label fx:id="energyPercentLabel" styleClass="text-dark" text="0%" />
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" styleClass="health-bar">
+                                    <children>
+                                        <Region fx:id="energyFill" styleClass="health-bar-fill" />
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+
+                        <!-- Digestion bar -->
+                        <VBox spacing="4.0">
+                            <children>
+                                <HBox alignment="CENTER_LEFT">
+                                    <children>
+                                        <Label styleClass="label-form" text="Digestion" />
+                                        <Region HBox.hgrow="ALWAYS" />
+                                        <Label fx:id="digestionPercentLabel" styleClass="text-dark" text="0%" />
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" styleClass="health-bar">
+                                    <children>
+                                        <Region fx:id="digestionFill" styleClass="health-bar-fill" />
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+
+                        <Region VBox.vgrow="ALWAYS" />
+
+                        <!-- Potency box at the bottom -->
+                        <VBox spacing="4.0" styleClass="potency-box">
+                            <children>
+                                <Label styleClass="metric-label" text="POTENCY" />
+                                <Label fx:id="potencyLabel" styleClass="metric-value" text="0 / 100" />
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </children>
+</VBox>

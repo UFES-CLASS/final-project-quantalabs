@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<!-- Root is a VBox: a light guest nav bar on top, then the scrollable body. -->
+<VBox alignment="TOP_CENTER" styleClass="root" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.quantalabs.jamusync.controller.SymptomSyncController">
+    <stylesheets>
+        <URL value="@../css/style.css" />
+    </stylesheets>
+    <children>
+
+        <!-- GUEST NAV BAR: full width bar with logo, pills, cart and back -->
+        <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" spacing="15.0" styleClass="guest-nav-bar">
+            <children>
+                <!-- JamuSync logo and QuantaLabs logo side by side -->
+                <HBox alignment="CENTER_LEFT" spacing="12.0">
+                    <children>
+                        <ImageView fitHeight="110.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/JamuSync_logofinal.png" />
+                            </image>
+                        </ImageView>
+                        <ImageView fitHeight="70.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/quantalabs-logo.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </HBox>
+                <Region HBox.hgrow="ALWAYS" />
+                <HBox alignment="CENTER" spacing="10.0">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#handleNavHerb" styleClass="nav-pill" text="Herb Matrix" />
+                        <Button mnemonicParsing="false" onAction="#handleNavMixer" styleClass="nav-pill" text="Jamu Mixer" />
+                        <!-- We are on this screen, so this pill is active -->
+                        <Button mnemonicParsing="false" styleClass="nav-pill, nav-pill-active" text="Symptom Sync" />
+                    </children>
+                </HBox>
+                <Region HBox.hgrow="ALWAYS" />
+                <!-- Cart button (shows how many items are in the cart) -->
+                <Button fx:id="cartButton" mnemonicParsing="false" onAction="#handleNavCart" styleClass="nav-pill" text="Cart (0)" />
+                <Button mnemonicParsing="false" onAction="#handleBackToLogin" styleClass="button-outline" text="Back to Login" />
+            </children>
+        </HBox>
+
+        <!-- Scrollable content, capped at 1200px and centered on wide screens -->
+        <ScrollPane fitToWidth="true" maxWidth="1200.0" styleClass="scroll-pane" VBox.vgrow="ALWAYS">
+            <content>
+                <VBox spacing="20.0">
+                    <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                    </padding>
+                    <children>
+
+                        <!-- Title section -->
+                        <VBox spacing="6.0">
+                            <children>
+                                <Label styleClass="guest-eyebrow" text="PERSONALIZED MEDICINE" />
+                                <Label styleClass="guest-title" text="Symptom-to-Sync Engine" />
+                                <Label styleClass="label-muted" text="Tell us how you are feeling and we will match you with traditional jamu remedies from our catalog." wrapText="true" />
+                            </children>
+                        </VBox>
+
+                        <!-- Symptom selection card -->
+                        <VBox spacing="12.0" styleClass="card">
+                            <children>
+                                <Label styleClass="card-title" text="I am currently feeling..." />
+                                <!-- The controller fills this FlowPane with symptom pills -->
+                                <FlowPane fx:id="symptomFlow" hgap="10.0" vgap="10.0" />
+                                <Button mnemonicParsing="false" onAction="#handleClearAll" styleClass="button-outline" text="Clear all selections" />
+                            </children>
+                        </VBox>
+
+                        <!-- Divider row with the matched count -->
+                        <HBox alignment="CENTER_LEFT" spacing="12.0">
+                            <children>
+                                <Label fx:id="matchCountLabel" styleClass="guest-eyebrow" text="0 remedies matched" />
+                                <Region maxWidth="1.7976931348623157E308" styleClass="divider" HBox.hgrow="ALWAYS" />
+                            </children>
+                        </HBox>
+
+                        <!-- The result cards go here -->
+                        <VBox fx:id="resultsContainer" spacing="15.0" />
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+
+        <!-- CHAT PANEL pinned at the bottom. It is kept secondary so the
+             symptoms and matched remedies stay the main content. -->
+        <VBox maxHeight="220.0" maxWidth="1200.0" spacing="12.0" styleClass="chat-panel">
+            <children>
+                <Label styleClass="card-title" text="Jamu Assistant" />
+
+                <!-- Scrollable chat history (compact, secondary area). -->
+                <ScrollPane fx:id="chatScroll" fitToWidth="true" maxHeight="180.0" minHeight="120.0" prefHeight="150.0" styleClass="scroll-pane">
+                    <content>
+                        <VBox fx:id="chatHistoryBox" spacing="12.0">
+                            <padding>
+                                <Insets bottom="8.0" left="4.0" right="12.0" top="8.0" />
+                            </padding>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+
+                <!-- The input row: a full width text field and a send button -->
+                <HBox spacing="12.0">
+                    <children>
+                        <TextField fx:id="chatInput" onAction="#handleSendChat" promptText="Ketik pertanyaan Anda di sini... / Type your question here..." HBox.hgrow="ALWAYS" />
+                        <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleSendChat" text="Send" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</VBox>
