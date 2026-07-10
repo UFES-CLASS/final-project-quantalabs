@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80">
+  <rect width="80" height="80" fill="#1A0A00"/>
+  <g fill="none" stroke="#C4522A" stroke-width="1.2" opacity="0.55">
+    <!-- Kawung quatrefoil  center -->
+    <circle cx="40" cy="40" r="14"/>
+    <path d="M40 26 C34 30, 34 38, 40 40 C46 38, 46 30, 40 26 Z"/>
+    <path d="M40 54 C34 50, 34 42, 40 40 C46 42, 46 50, 40 54 Z"/>
+    <path d="M26 40 C30 34, 38 34, 40 40 C38 46, 30 46, 26 40 Z"/>
+    <path d="M54 40 C50 46, 42 46, 40 40 C42 34, 50 34, 54 40 Z"/>
+    <!-- Kawung  corners -->
+    <circle cx="0" cy="0" r="10"/>
+    <circle cx="80" cy="0" r="10"/>
+    <circle cx="0" cy="80" r="10"/>
+    <circle cx="80" cy="80" r="10"/>
+    <circle cx="40" cy="0" r="8"/>
+    <circle cx="40" cy="80" r="8"/>
+    <circle cx="0" cy="40" r="8"/>
+    <circle cx="80" cy="40" r="8"/>
+  </g>
+  <g fill="#C4522A" opacity="0.12">
+    <circle cx="40" cy="40" r="6"/>
+    <circle cx="0" cy="0" r="4"/>
+    <circle cx="80" cy="80" r="4"/>
+    <circle cx="80" cy="0" r="4"/>
+    <circle cx="0" cy="80" r="4"/>
+  </g>
+</svg>
