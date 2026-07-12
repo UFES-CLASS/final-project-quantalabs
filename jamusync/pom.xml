@@ -16,7 +16,7 @@
     </properties>
 
     <dependencies>
-        <!-- JavaFX Controls -->
+        <!-- JavaFX Controls (platform classes, used at compile time and for the build host) -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
@@ -28,6 +28,73 @@
             <artifactId>javafx-fxml</artifactId>
             <version>${javafx.version}</version>
         </dependency>
+
+        <!--
+             Cross-platform native libraries bundled into the fat JAR.
+             Windows (.dll) and macOS Apple-Silicon (.dylib) natives have
+             distinct file names, so both can live in one jar and the single
+             `java -jar target/jamusync.jar` runs on Windows x64 and Apple
+             Silicon Macs without a separate JavaFX install.
+
+             NOTE: Intel-Mac natives use the classifier "mac" but share the
+             SAME .dylib file names as "mac-aarch64", so the two Mac arches
+             cannot be bundled together. This build targets Apple Silicon
+             (this machine). To target Intel Macs instead, swap the three
+             "mac-aarch64" classifiers below for "mac"; add "linux" the same
+             way for Linux.
+        -->
+        <!-- Windows x64 natives -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>win</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>win</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>win</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>win</classifier>
+        </dependency>
+
+        <!-- macOS Apple Silicon (aarch64) natives -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>mac-aarch64</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>mac-aarch64</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>mac-aarch64</classifier>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+            <classifier>mac-aarch64</classifier>
+        </dependency>
+
         <!-- SQLite JDBC -->
         <dependency>
             <groupId>org.xerial</groupId>
@@ -54,7 +121,8 @@
                     <target>21</target>
                 </configuration>
             </plugin>
-            <!-- JavaFX Maven Plugin -->
+
+            <!-- JavaFX Maven Plugin (for `mvn javafx:run` during development) -->
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
@@ -62,6 +130,51 @@
                 <configuration>
                     <mainClass>com.quantalabs.jamusync.Main</mainClass>
                 </configuration>
+            </plugin>
+
+            <!--
+                 Shade plugin: builds a single runnable "fat JAR" that bundles
+                 every dependency (JavaFX + native libs, SQLite JDBC, Gson).
+                 Produces target/jamusync.jar, launchable with:
+                     java -jar target/jamusync.jar
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Output name: target/jamusync.jar -->
+                            <finalName>jamusync</finalName>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <transformers>
+                                <!-- Set the executable Main-Class in the manifest -->
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.quantalabs.jamusync.Main</mainClass>
+                                </transformer>
+                                <!-- Merge META-INF/services (e.g. the SQLite JDBC driver) -->
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+                            </transformers>
+                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                    <excludes>
+                                        <!-- Avoid clashing module descriptors and signature files -->
+                                        <exclude>module-info.class</exclude>
+                                        <exclude>META-INF/*.SF</exclude>
+                                        <exclude>META-INF/*.DSA</exclude>
+                                        <exclude>META-INF/*.RSA</exclude>
+                                    </excludes>
+                                </filter>
+                            </filters>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
