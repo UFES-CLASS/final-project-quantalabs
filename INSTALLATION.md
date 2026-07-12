@@ -1,22 +1,10 @@
 JamuSync — Installation & Running Instructions
 
-REQUIREMENTS
-- Java 17 or higher (JDK)
-- Maven 3.6+ (only needed if running from source)
-
-OPTION 1 — Run the JAR (easiest, no setup)
-1. Ensure Java 17+ is installed. Check with: java -version
-2. Open a terminal in the folder containing jamusync.jar
-3. Run: java -jar jamusync.jar
-4. The application window opens automatically.
-
-OPTION 2 — Run from source with Maven
-1. Open a terminal in the project folder
-2. cd jamusync
-3. Run: mvn javafx:run
-
-LOGIN CREDENTIALS
-The database is created and seeded automatically on first run.
+============================================================
+DEFAULT LOGIN CREDENTIALS
+============================================================
+The database is created and pre-seeded automatically on the
+first run, so these accounts work immediately — no setup.
 
 Owner account:
   Username: admin
@@ -28,6 +16,24 @@ Staff account:
 
 Guest access:
   Click "Browse Products as Guest" on the login screen (no login needed)
+============================================================
+
+REQUIREMENTS
+- Java 17 or higher (JDK)
+- Maven 3.6+ (only needed if running from source)
+
+HOW TO RUN
+
+Option 1 — Run from source with Maven
+1. Open a terminal in the project folder
+2. cd jamusync
+3. Run: mvn javafx:run
+
+Option 2 — Run the JAR (easiest, no setup)
+1. Ensure Java is installed. Check with: java -version
+2. Open a terminal in the folder containing jamusync.jar
+3. Run: java -jar jamusync.jar
+4. The application window opens automatically.
 
 NOTES
 - The database (jamusync.db) is created automatically on first launch and

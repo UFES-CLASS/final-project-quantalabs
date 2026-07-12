@@ -345,6 +345,18 @@ JamuSync
 
 ---
 
+## 🔑 Default Login Credentials
+
+> The database (`jamusync.db`) is **created and pre-seeded automatically on first launch** with sample products, sales, and pending orders — so these accounts work immediately, no setup required.
+
+| Role | Username | Password |
+|------|----------|----------|
+| 👑 **Owner** | `admin` | `admin123` |
+| 🧑‍💼 **Staff** | `staff1` | `staff123` |
+| 🌿 **Guest** | *no login* — click **"Browse Products as Guest"** on the login screen | — |
+
+---
+
 ## 🚀 How to Run
 
 **Requirements:** Java 21 or newer, and Maven.
@@ -355,19 +367,20 @@ Clone the repository:
 git clone https://github.com/UFES-CLASS/final-project-quantalabs.git
 ```
 
-Run the application (the Maven project lives in the `jamusync/` sub-folder):
+**Option 1 — Run from source with Maven** (the Maven project lives in the `jamusync/` sub-folder):
 
 ```bash
 cd final-project-quantalabs/jamusync
 mvn javafx:run
 ```
 
-### 🔑 Default Login Credentials
+**Option 2 — Run the packaged JAR** (no Maven needed):
 
-| Role | Username | Password |
-|------|----------|----------|
-| Owner | `admin` | `admin123` |
-| Staff | `staff1` | `staff123` |
+```bash
+java -jar jamusync.jar
+```
+
+On first launch the app automatically creates and seeds `jamusync.db` with sample products, sales, and pending orders. Then log in with the [default credentials above](#-default-login-credentials).
 
 ---
 
