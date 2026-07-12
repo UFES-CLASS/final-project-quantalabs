@@ -134,6 +134,14 @@ public class DatabaseManager {
 
             // Seed default admin
             seedDefaultAdmin(conn);
+            // Seed a default staff account so both roles can log in on a fresh clone.
+            seedDefaultStaff(conn);
+
+            // Auto-fill the database with realistic sample data on first run so
+            // anyone who clones the repo and runs the app sees full reports/charts.
+            // DemoDataSeeder is self-guarded: it does nothing if demo data already
+            // exists, so it never duplicates on restart.
+            com.quantalabs.jamusync.util.DemoDataSeeder.seedDemoData();
 
         } catch (SQLException e) {
             System.err.println("Error while initializing database:");
@@ -160,6 +168,29 @@ public class DatabaseManager {
             }
         } catch (SQLException e) {
             System.err.println("Error seeding default admin user:");
+            e.printStackTrace();
+        }
+    }
+
+    private void seedDefaultStaff(Connection conn) {
+        String countSql = "SELECT COUNT(*) FROM users WHERE role = 'staff';";
+        String insertSql = "INSERT INTO users (username, password_hash, role) VALUES ('staff', ?, 'staff');";
+
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(countSql)) {
+
+            if (rs.next() && rs.getInt(1) == 0) {
+                String hashedPassword = PasswordUtil.hashPassword("staff123");
+                if (hashedPassword != null) {
+                    try (java.sql.PreparedStatement pstmt = conn.prepareStatement(insertSql)) {
+                        pstmt.setString(1, hashedPassword);
+                        pstmt.executeUpdate();
+                        System.out.println("Default staff user seeded successfully (username: staff, password: staff123).");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error seeding default staff user:");
             e.printStackTrace();
         }
     }
