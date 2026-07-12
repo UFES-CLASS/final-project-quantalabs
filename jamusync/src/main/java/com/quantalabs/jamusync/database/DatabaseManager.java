@@ -174,7 +174,7 @@ public class DatabaseManager {
 
     private void seedDefaultStaff(Connection conn) {
         String countSql = "SELECT COUNT(*) FROM users WHERE role = 'staff';";
-        String insertSql = "INSERT INTO users (username, password_hash, role) VALUES ('staff', ?, 'staff');";
+        String insertSql = "INSERT INTO users (username, password_hash, role) VALUES ('staff1', ?, 'staff');";
 
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(countSql)) {
@@ -185,7 +185,7 @@ public class DatabaseManager {
                     try (java.sql.PreparedStatement pstmt = conn.prepareStatement(insertSql)) {
                         pstmt.setString(1, hashedPassword);
                         pstmt.executeUpdate();
-                        System.out.println("Default staff user seeded successfully (username: staff, password: staff123).");
+                        System.out.println("Default staff user seeded successfully (username: staff1, password: staff123).");
                     }
                 }
             }

@@ -94,7 +94,7 @@
                         </ImageView>
 
                         <!-- Wide brew button. It is disabled until an ingredient is picked. -->
-                        <Button fx:id="brewButton" disable="true" maxWidth="300.0" minWidth="300.0" prefWidth="300.0" mnemonicParsing="false" onAction="#handleBrew" text="Select ingredients to brew" />
+                        <Button fx:id="brewButton" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleBrew" text="Select ingredients to brew" />
 
                         <!-- Result card: hidden until the user clicks brew -->
                         <VBox fx:id="resultCard" managed="false" maxWidth="360.0" spacing="8.0" styleClass="card" visible="false">

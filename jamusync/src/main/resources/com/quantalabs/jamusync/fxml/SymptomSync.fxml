@@ -118,7 +118,7 @@
                 <HBox spacing="12.0">
                     <children>
                         <TextField fx:id="chatInput" onAction="#handleSendChat" promptText="Ketik pertanyaan Anda di sini... / Type your question here..." HBox.hgrow="ALWAYS" />
-                        <Button fx:id="sendButton" minWidth="110.0" mnemonicParsing="false" onAction="#handleSendChat" prefWidth="110.0" text="Send" />
+                        <Button fx:id="sendButton" mnemonicParsing="false" onAction="#handleSendChat" text="Send" />
                     </children>
                 </HBox>
             </children>

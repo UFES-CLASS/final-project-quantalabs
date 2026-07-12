@@ -190,6 +190,7 @@ public class SymptomSyncController {
                 : "No matching remedies found. Try different symptoms or ask the assistant below.");
             empty.getStyleClass().add("label-muted");
             empty.setWrapText(true);
+            empty.setMinHeight(javafx.scene.layout.Region.USE_PREF_SIZE);
             resultsContainer.getChildren().add(empty);
         }
     }
@@ -234,6 +235,7 @@ public class SymptomSyncController {
         );
         description.getStyleClass().add("label-muted");
         description.setWrapText(true);
+        description.setMinHeight(javafx.scene.layout.Region.USE_PREF_SIZE);
 
         details.getChildren().addAll(name, description);
 
@@ -328,6 +330,7 @@ public class SymptomSyncController {
         Label bubble = new Label(text);
         bubble.getStyleClass().add("chat-bubble-user");
         bubble.setWrapText(true);
+        bubble.setMinHeight(javafx.scene.layout.Region.USE_PREF_SIZE);
         bubble.setMaxWidth(460);
 
         HBox row = new HBox(bubble);
@@ -344,6 +347,7 @@ public class SymptomSyncController {
         Label bubble = new Label(text);
         bubble.getStyleClass().add("chat-bubble-bot");
         bubble.setWrapText(true);
+        bubble.setMinHeight(javafx.scene.layout.Region.USE_PREF_SIZE);
         bubble.setMaxWidth(440);
 
         HBox row = new HBox(8, icon, bubble);

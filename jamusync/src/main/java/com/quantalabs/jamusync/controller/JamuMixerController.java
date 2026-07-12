@@ -76,6 +76,11 @@ public class JamuMixerController {
         resultBlendLabel.setPadding(new javafx.geometry.Insets(6, 10, 6, 10));
         resultBlendLabel.setWrapText(true);
 
+        // The blend description wraps to several lines, so let it grow to fit
+        // its content height as well (never clip the last line on Windows).
+        resultDescLabel.setWrapText(true);
+        resultDescLabel.setMinHeight(javafx.scene.control.Label.USE_PREF_SIZE);
+
         // Make a toggle button for each ingredient.
         for (String[] ingredient : ingredients) {
             // English name first, then the Indonesian name in parentheses,

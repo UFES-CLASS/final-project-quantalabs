@@ -51,6 +51,7 @@ public class HerbMatrixController {
             Label empty = new Label("No products available. Ask the admin to add products first.");
             empty.getStyleClass().add("label-muted");
             empty.setWrapText(true);
+            empty.setMinHeight(Region.USE_PREF_SIZE);
             herbGrid.getChildren().add(empty);
         } else {
             // Make a card for every product and add it to the grid.
@@ -117,6 +118,7 @@ public class HerbMatrixController {
             Label descLabel = new Label(product.getDescription());
             descLabel.getStyleClass().add("label-muted");
             descLabel.setWrapText(true);
+            descLabel.setMinHeight(Region.USE_PREF_SIZE);
             card.getChildren().add(descLabel);
         }
 
@@ -127,6 +129,7 @@ public class HerbMatrixController {
             Label benefitsText = new Label(product.getHealthBenefits());
             benefitsText.getStyleClass().add("text-dark");
             benefitsText.setWrapText(true);
+            benefitsText.setMinHeight(Region.USE_PREF_SIZE);
             card.getChildren().addAll(benefitsTitle, benefitsText);
         }
 
@@ -137,6 +140,7 @@ public class HerbMatrixController {
             Label ingredientsText = new Label(product.getIngredients());
             ingredientsText.getStyleClass().add("text-dark");
             ingredientsText.setWrapText(true);
+            ingredientsText.setMinHeight(Region.USE_PREF_SIZE);
             card.getChildren().addAll(ingredientsTitle, ingredientsText);
         }
 

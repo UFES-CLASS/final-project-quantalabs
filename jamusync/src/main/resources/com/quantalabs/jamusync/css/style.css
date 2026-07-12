@@ -316,9 +316,10 @@
     -fx-background-color: #9A2E2E;
 }
 
-/* Small button used inside table rows (like the cart Remove button) */
+/* Small button used inside table rows (like the cart Remove button).
+   Keeps enough vertical room that descenders (g, y, p) never clip on Windows. */
 .button-small {
-    -fx-padding: 5px 12px;
+    -fx-padding: 6px 16px;
     -fx-font-size: 12px;
     -fx-background-radius: 8px;
 }
@@ -756,7 +757,7 @@
     -fx-padding: 30px 30px 10px 30px;
 }
 
-/* Small orange label above the big page title (like "MATERIA MEDICA") */
+/* Small orange label above the big page title (like "JAMU ENCYCLOPEDIA") */
 .guest-eyebrow {
     -fx-font-size: 13px;
     -fx-font-weight: bold;

@@ -75,7 +75,7 @@
                                 <!-- Title section -->
                                 <VBox spacing="6.0" styleClass="guest-title-section">
                                     <children>
-                                        <Label styleClass="guest-eyebrow" text="MATERIA MEDICA" />
+                                        <Label styleClass="guest-eyebrow" text="JAMU ENCYCLOPEDIA" />
                                         <Label styleClass="guest-title" text="The Herb Matrix" />
                                         <Label styleClass="label-muted" text="Explore the traditional herbs behind every cup of jamu - their origins, batik patterns, flavors, and wellness benefits." wrapText="true" />
                                     </children>
