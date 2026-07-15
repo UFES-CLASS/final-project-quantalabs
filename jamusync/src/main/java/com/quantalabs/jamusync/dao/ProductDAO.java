@@ -173,6 +173,27 @@ public class ProductDAO {
     }
 
     /**
+     * Permanently delete a product from the products table. Past sales history is
+     * preserved because each transaction item stores its own product_name snapshot,
+     * so deleting the product does not erase the name shown in old transactions.
+     * @param productId The product ID.
+     * @return True if a row was deleted, false otherwise.
+     */
+    public boolean deleteProduct(int productId) {
+        String sql = "DELETE FROM products WHERE id = ?";
+        try (Connection conn = DatabaseManager.getInstance().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, productId);
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
      * Check if a product name is unique (excluding a specific ID).
      * @param name The product name to check.
      * @param excludeId The ID to exclude from query (0 if checking for a new product).

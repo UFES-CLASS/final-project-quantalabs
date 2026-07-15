@@ -191,7 +191,7 @@
                                         <Button fx:id="clearButton" mnemonicParsing="false" onAction="#handleClear" styleClass="button-outline" text="Clear" />
                                     </children>
                                 </HBox>
-                                <Button fx:id="deactivateButton" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDeactivate" styleClass="button-danger" text="Deactivate" />
+                                <Button fx:id="deactivateButton" disable="true" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDeactivate" styleClass="button-danger" text="Delete Product" />
                             </children>
                         </VBox>
                     </children>

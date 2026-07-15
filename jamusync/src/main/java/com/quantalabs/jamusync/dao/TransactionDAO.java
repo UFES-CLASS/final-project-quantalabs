@@ -305,12 +305,15 @@ public class TransactionDAO {
      */
     public List<MonthlyRevenueCost> getMonthlyRevenueCost(String startDate, String endDate) {
         List<MonthlyRevenueCost> results = new ArrayList<>();
+        // LEFT JOIN products so a sale's revenue is still counted even after its
+        // product has been permanently deleted. Cost for a deleted product is not
+        // recoverable (it is not snapshotted on the item), so it contributes 0.
         String sql = "SELECT strftime('%Y-%m', t.created_at) AS month, " +
                      "SUM(t.total) AS revenue, " +
                      "SUM(ti.quantity * p.cost) AS cost " +
                      "FROM transactions t " +
                      "JOIN transaction_items ti ON ti.transaction_id = t.id " +
-                     "JOIN products p ON ti.product_id = p.id " +
+                     "LEFT JOIN products p ON ti.product_id = p.id " +
                      "WHERE t.status = 'Completed' " +
                      "AND date(t.created_at) >= date(?) AND date(t.created_at) <= date(?) " +
                      "GROUP BY month ORDER BY month";

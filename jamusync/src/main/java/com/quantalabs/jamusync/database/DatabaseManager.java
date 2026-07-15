@@ -130,6 +130,12 @@ public class DatabaseManager {
                     "FOREIGN KEY (product_id) REFERENCES products(id)" +
                     ");");
 
+            // Migration: store the product name on each transaction item so that
+            // past sales keep showing the correct name even after a product is
+            // permanently deleted from the products table. Guarded so it does not
+            // fail if the column already exists.
+            addColumnIfMissing(conn, "transaction_items", "product_name", "TEXT");
+
             System.out.println("Database tables initialized successfully.");
 
             // Seed default admin
@@ -145,6 +151,36 @@ public class DatabaseManager {
 
         } catch (SQLException e) {
             System.err.println("Error while initializing database:");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Add a column to a table only if it does not already exist. SQLite has no
+     * "ADD COLUMN IF NOT EXISTS", so we inspect the current schema first and skip
+     * the ALTER when the column is already present. This keeps startup migrations
+     * idempotent across app restarts and existing databases.
+     */
+    private void addColumnIfMissing(Connection conn, String table, String column, String type) {
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery("PRAGMA table_info(" + table + ");")) {
+
+            boolean exists = false;
+            while (rs.next()) {
+                if (column.equalsIgnoreCase(rs.getString("name"))) {
+                    exists = true;
+                    break;
+                }
+            }
+
+            if (!exists) {
+                try (Statement alter = conn.createStatement()) {
+                    alter.execute("ALTER TABLE " + table + " ADD COLUMN " + column + " " + type + ";");
+                    System.out.println("Added column '" + column + "' to '" + table + "' table.");
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error ensuring column '" + column + "' exists on '" + table + "':");
             e.printStackTrace();
         }
     }

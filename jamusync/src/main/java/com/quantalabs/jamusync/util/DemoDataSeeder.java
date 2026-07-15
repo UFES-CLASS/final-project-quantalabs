@@ -152,6 +152,19 @@ public class DemoDataSeeder {
         return 0.0;
     }
 
+    // Reads a product's current name from the database.
+    private static String getProductName(Connection conn, int productId) throws SQLException {
+        try (PreparedStatement ps = conn.prepareStatement("SELECT name FROM products WHERE id = ?")) {
+            ps.setInt(1, productId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getString(1);
+                }
+            }
+        }
+        return null;
+    }
+
     // Finds the owner user's id (the sales need a valid recorded_by). Falls back to 1.
     private static int getOwnerUserId(Connection conn) throws SQLException {
         try (Statement stmt = conn.createStatement();
@@ -258,7 +271,7 @@ public class DemoDataSeeder {
 
         // Insert each transaction_item, and (for completed sales) the stock movement.
         String itemSql = "INSERT INTO transaction_items " +
-                "(transaction_id, product_id, quantity, unit_price, subtotal) VALUES (?, ?, ?, ?, ?)";
+                "(transaction_id, product_id, quantity, unit_price, subtotal, product_name) VALUES (?, ?, ?, ?, ?, ?)";
         for (int k = 0; k < itemCount; k++) {
             int idx = chosenIndex[k];
             int qty = chosenQty[k];
@@ -271,6 +284,8 @@ public class DemoDataSeeder {
                 ps.setInt(3, qty);
                 ps.setDouble(4, unitPrice);
                 ps.setDouble(5, lineSubtotal);
+                // Snapshot the product name so demo history survives deletion too.
+                ps.setString(6, getProductName(conn, productIds[idx]));
                 ps.executeUpdate();
             }
 

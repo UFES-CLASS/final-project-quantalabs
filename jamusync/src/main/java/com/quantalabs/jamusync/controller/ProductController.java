@@ -135,22 +135,23 @@ public class ProductController extends BaseController {
     @FXML
     public void handleDeactivate(ActionEvent event) {
         if (selectedProductId == 0) {
-            showError("Select a product to deactivate.");
+            showError("Select a product to delete.");
             return;
         }
 
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
         confirm.setTitle("JamuSync - Confirm");
-        confirm.setHeaderText("Deactivate Product");
-        confirm.setContentText("Are you sure you want to deactivate \"" + nameField.getText().trim() + "\"?");
+        confirm.setHeaderText("Delete Product");
+        confirm.setContentText("This will permanently delete the product. " +
+                "Past sales history will be preserved. Continue?");
         confirm.showAndWait().ifPresent(response -> {
             if (response == javafx.scene.control.ButtonType.OK) {
-                if (productDAO.deactivateProduct(selectedProductId)) {
-                    showSuccess("Product deactivated successfully.");
+                if (productDAO.deleteProduct(selectedProductId)) {
+                    showSuccess("Product deleted successfully.");
                     handleClear(null);
                     loadProducts();
                 } else {
-                    showError("Failed to deactivate product.");
+                    showError("Failed to delete product.");
                 }
             }
         });

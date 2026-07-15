@@ -67,9 +67,13 @@ public class TransactionService {
 
             for (TransactionItem item : items) {
                 item.setTransactionId(transactionId);
-                transactionItemDAO.insertItem(conn, item);
 
                 Product product = productDAO.getProductById(conn, item.getProductId());
+                // Snapshot the product's current name onto the item so the sale
+                // keeps its name even if the product is later deleted.
+                item.setProductName(product.getName());
+                transactionItemDAO.insertItem(conn, item);
+
                 int newStock = product.getStock() - item.getQuantity();
                 productDAO.updateStock(conn, item.getProductId(), newStock);
 

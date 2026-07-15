@@ -11,15 +11,10 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 
 // Talks to the Google Gemini API to give jamu health advice.
-// The API key is read from the GEMINI_API_KEY environment variable so it
-// is NOT stored in the source code. Set it before running the app, e.g:
-//   export GEMINI_API_KEY=your-key-here
 public class OllamaClient {
 
-    // Read the Gemini API key from an environment variable (empty if unset).
-    private static final String API_KEY =
-        System.getenv("GEMINI_API_KEY") == null ? "" : System.getenv("GEMINI_API_KEY");
-
+    // Gemini API key.
+    private static final String API_KEY = System.getenv("GCP_API_KEY");
     // Gemini generateContent endpoint. The key is added on the end.
     // (gemini-2.5-flash is what this API key has access + quota for.)
     private static final String API_URL =
